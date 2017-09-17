@@ -8,39 +8,51 @@
 </ion-header>
 
 <ion-content padding>
- <ion-list>
-    <ion-list-header>
-      Today
-    </ion-list-header>
+	<ion-list *ngFor="let day of days | async">
+		<ion-list-header>
+			<p>{{calendar.name}}</p>
+			<p>Test</p>
+			{{day.$key}}
+		</ion-list-header>
+		<!--
+		<ion-item *ngFor="let entry of getEntrys(day.$key) | async">
+			<ion-note item-start>{{entry.from}} - {{entry.until}}</ion-note>
+		</ion-item>-->
+	</ion-list>
+	
+	<ion-list>
+	<ion-list-header>
+	  <h3>Today</h3>
+	</ion-list-header>
 
-    <ion-item>
-      <ion-note item-start>14:00 - 14:30</ion-note>
-      <h2>Martin S.</h2>
-      <p>Bachelorarbeit Besprechung</p>
-    </ion-item>
+	<ion-item>
+	  <ion-note item-start>14:00 - 14:30</ion-note>
+	  <h2>Martin S.</h2>
+	  <p>Bachelorarbeit Besprechung</p>
+	</ion-item>
 
-    <ion-item>
-      <ion-note item-start>14:15 - 14:30</ion-note>
-      <h2>Silvya H.</h2>
-      <p>Projektbesprechung</p>
-    </ion-item>
-  </ion-list>
+	<ion-item>
+	  <ion-note item-start>14:15 - 14:30</ion-note>
+	  <h2>Silvya H.</h2>
+	  <p>Projektbesprechung</p>
+	</ion-item>
+	</ion-list>
 
- <ion-list>
-    <ion-list-header>
-      Tomorrow
-    </ion-list-header>
+	<ion-list>
+	<ion-list-header>
+	  Tomorrow
+	</ion-list-header>
 
-    <ion-item>
-      <ion-note item-start>14:00 - 14:30</ion-note>
-      <h2>Martin S.</h2>
-      <p>Bachelorarbeit Besprechung</p>
-    </ion-item>
+	<ion-item>
+	  <ion-note item-start>14:00 - 14:30</ion-note>
+	  <h2>Martin S.</h2>
+	  <p>Bachelorarbeit Besprechung</p>
+	</ion-item>
 
-    <ion-item>
-      <ion-note item-start>14:15 - 14:30</ion-note>
-      <h2>Silvya H.</h2>
-      <p>Projektbesprechung</p>
-    </ion-item>
-  </ion-list>
+	<ion-item>
+	  <ion-note item-start>14:15 - 14:30</ion-note>
+	  <h2>Silvya H.</h2>
+	  <p>Projektbesprechung</p>
+	</ion-item>
+	</ion-list>
 </ion-content>

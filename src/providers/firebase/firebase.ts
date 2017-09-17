@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { AngularFireDatabase } from 'angularfire2/database';
  
 @Injectable()
 export class FirebaseProvider {
@@ -10,6 +10,14 @@ export class FirebaseProvider {
 
 	getCalendars() {
 		return this.afd.list('/calendars/');
+	}
+	
+	getCalendar() {
+		return this.afd.list('/calendars/' + this.currentCalendar + '/');
+	}
+	
+	setCalendar(name) {
+		this.currentCalendar = name;
 	}
 
 	addCalendar(name, description) {
@@ -22,5 +30,13 @@ export class FirebaseProvider {
 	
 	getCurrentCalendar() {
 		return this.currentCalendar;
+	}
+	
+	getDays() {
+		return this.afd.list('/calendars/' + this.currentCalendar + '/days/');
+	}
+	
+	getDay(day: string) {
+		return this.afd.object('/calendars/' + this.currentCalendar + '/days/$(day)');
 	}
 }
