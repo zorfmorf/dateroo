@@ -8,5 +8,32 @@
 </ion-header>
 
 <ion-content padding>
-	<p>A list of all calendars and the active calendar</p>
+	<p>A list of configured calendars. Select a calendar to activate it.</p>
+	
+	<ion-list>
+		<ion-item-sliding *ngFor="let calendar of calendars | async">
+			<ion-item>
+				<ion-icon *ngIf="calendar.$key === currentCalendar()" name="checkmark" item-end></ion-icon>
+				<h2>{{ calendar.name }}</h2>
+				<p>{{ calendar.description }}</p>
+				<ion-item-options side="right">
+					<button ion-button color="danger" icon-only (click)="removeCalendar(calendar.$key)">
+						<ion-icon name="trash"></ion-icon>
+					</button>
+				</ion-item-options>
+			</ion-item>
+		</ion-item-sliding>
+	</ion-list>
+	
+	<ion-row>
+		<ion-col col-9>
+		  <ion-item>
+			<ion-input type="text" [(ngModel)]="newCalendarName" placeholder="Calendar name"></ion-input>
+			<ion-input type="text" [(ngModel)]="newCalendarDescription" placeholder="Calendar description"></ion-input>
+		  </ion-item>
+		</ion-col>
+		<ion-col>
+		  <button ion-button (click)="addCalendar()">Add!</button>
+		</ion-col>
+	</ion-row>
 </ion-content>

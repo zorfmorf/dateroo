@@ -12,6 +12,18 @@ import { HomePage } from '../pages/home/home';
 import { SettingsPage } from '../pages/settings/settings';
 import { CalendarsPage } from '../pages/calendars/calendars';
 
+import { HttpModule } from '@angular/http';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireModule } from 'angularfire2';
+import { FirebaseProvider } from '../providers/firebase/firebase';
+
+export const firebaseConfig = {
+  apiKey: "AIzaSyBc5prANnQMuEfMxM75vA3dSzpKkR7HMBA",
+  authDomain: "dateroo-13eb5.firebaseapp.com",
+  databaseURL: "https://dateroo-13eb5.firebaseio.com",
+  storageBucket: "gs://dateroo-13eb5.appspot.com",
+  messagingSenderId: '914064748849'
+};
 @NgModule({
   declarations: [
     MyApp,
@@ -22,6 +34,9 @@ import { CalendarsPage } from '../pages/calendars/calendars';
   ],
   imports: [
     BrowserModule,
+    HttpModule,
+    AngularFireDatabaseModule,
+    AngularFireModule.initializeApp(firebaseConfig),
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -35,14 +50,9 @@ import { CalendarsPage } from '../pages/calendars/calendars';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    FirebaseProvider
   ]
 })
+
 export class AppModule {}
-export const firebaseConfig = {
-  apiKey: "AIzaSyBc5prANnQMuEfMxM75vA3dSzpKkR7HMBA",
-  authDomain: "dateroo-13eb5.firebaseapp.com",
-  databaseURL: "https://dateroo-13eb5.firebaseio.com",
-  storageBucket: "gs://dateroo-13eb5.appspot.com",
-  messagingSenderId: '914064748849'
-};

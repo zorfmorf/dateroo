@@ -3,6 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { SettingsPage } from '../settings/settings';
 import { CalendarsPage } from '../calendars/calendars';
+import { AngularFireDatabaseModule, AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 
 @Component({
   selector: 'page-main',

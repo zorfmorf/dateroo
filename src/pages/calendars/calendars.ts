@@ -1,12 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the CalendarsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { FirebaseProvider } from '../../providers/firebase/firebase';
+import { FirebaseListObservable } from 'angularfire2/database';
 
 @IonicPage()
 @Component({
@@ -14,12 +9,27 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'calendars.html',
 })
 export class CalendarsPage {
+  calendars : FirebaseListObservable<any[]>;
+  newCalendarName = '';
+  newCalendarDescription = '';
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public firebaseProvider: FirebaseProvider) {
+	  this.calendars = this.firebaseProvider.getCalendars();
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CalendarsPage');
   }
 
+  addCalendar(name) {
+    this.firebaseProvider.addCalendar(this.newCalendarName, this.newCalendarDescription);
+  }
+ 
+  removeCalendar(id) {
+    this.firebaseProvider.removeCalendar(id);
+  }
+  
+  currentCalendar() {
+	return this.firebaseProvider.getCurrentCalendar()
+  }
 }
