@@ -28,3 +28,10 @@ import { HomePage } from '../pages/home/home';
   ]
 })
 export class AppModule {}
+export const firebaseConfig = {
+  apiKey: "xxxxxxxxxx",
+  authDomain: "dateroo-13eb5.firebaseapp.com",
+  databaseURL: "https://dateroo-13eb5.firebaseio.com",
+  storageBucket: "gs://dateroo-13eb5.appspot.com",
+  messagingSenderId: '914064748849'
+};
