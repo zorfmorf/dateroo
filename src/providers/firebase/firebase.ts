@@ -37,6 +37,11 @@ export class FirebaseProvider {
 	}
 	
 	getDay(day: string) {
-		return this.afd.object('/calendars/' + this.currentCalendar + '/days/$(day)');
+		console.log('/calendars/' + this.currentCalendar + '/days/' + day + '/')
+		return this.afd.list('/calendars/' + this.currentCalendar + '/days/' + day + '/');
+	}
+	
+	getEntry(day: string, entry: string) {
+		return this.afd.list('/calendars/' + this.currentCalendar + '/days/' + day + '/' + entry + '/');
 	}
 }
