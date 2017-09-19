@@ -15,7 +15,6 @@ export class HomePage {
 	day1 : FirebaseListObservable<any[]> = null;
 	day2 : FirebaseListObservable<any[]> = null;
 	day3 : FirebaseListObservable<any[]> = null;
-	day4 : FirebaseListObservable<any[]> = null;
 	entryMap : Map<string, FirebaseListObservable<any[]>> = new Map<string, FirebaseListObservable<any[]>>();
 
 	constructor(public navCtrl: NavController, public firebaseProvider: FirebaseProvider) {
@@ -25,9 +24,9 @@ export class HomePage {
 		this.day0 = this.firebaseProvider.getDay(this.dateToString(date));
 		date.setDate(date.getDate() + 1);
 		this.day1 = this.firebaseProvider.getDay(this.dateToString(date));
-		date.setDate(date.getDate() + 1);
+		date.setDate(date.getDate() + 2);
 		this.day2 = this.firebaseProvider.getDay(this.dateToString(date));
-		date.setDate(date.getDate() + 1);
+		date.setDate(date.getDate() + 3);
 		this.day3 = this.firebaseProvider.getDay(this.dateToString(date));
 	}
 	
@@ -39,31 +38,23 @@ export class HomePage {
 		return this.firebaseProvider.getDay(day)
 	}
 	
-	getEntry(day: number, entry: string) {
-		var date = new Date();
-		date.setDate(date.getDate() + this.dayOffset + day);
-		if (this.entryMap[entry] == null) {
-			this.entryMap[entry] = this.firebaseProvider.getEntry(this.dateToString(date), entry)
-		}
-		return this.entryMap[entry]
-	}
-	
 	dateToString(date) {
         return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
 	}
 	
-	getDayName(value: string) {
-		let v = value + '';
-		let s = v.split("/");
-		let r = s[s.length - 1];
-		var date = new Date();
-		if (this.dayOffset == 0 && r == this.dateToString(date)) {
+	getDayName(number) {
+		if (this.dayOffset + number == 0) {
 			return "Today";
 		}
-		date.setDate(date.getDate() + 1)
-		if (this.dayOffset == 0 && r == this.dateToString(date)) {
+		if (this.dayOffset + number == 1) {
 			return "Tomorrow";
 		}
-		return r;
+		var date = new Date();
+		date.setDate(date.getDate() + this.dayOffset + number);
+		return this.dateToString(date);
+	}
+	
+	getDayValue() {
+		return new Date();
 	}
 }

@@ -32,16 +32,12 @@ export class FirebaseProvider {
 		return this.currentCalendar;
 	}
 	
-	getDays() {
-		return this.afd.list('/calendars/' + this.currentCalendar + '/days/');
-	}
-	
 	getDay(day: string) {
-		console.log('/calendars/' + this.currentCalendar + '/days/' + day + '/')
-		return this.afd.list('/calendars/' + this.currentCalendar + '/days/' + day + '/');
-	}
-	
-	getEntry(day: string, entry: string) {
-		return this.afd.list('/calendars/' + this.currentCalendar + '/days/' + day + '/' + entry + '/');
+		return this.afd.list('/calendars/' + this.currentCalendar + '/entries/', {
+			query: {
+				orderByChild: 'date',
+				equalTo: day
+			}
+		});
 	}
 }

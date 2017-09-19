@@ -1,43 +1,43 @@
 {
-  "calendars" : {
-    "-KuGFx3yqJmKMs3rfJw4" : {
-      "description" : "Habe ich zum Testen erstellt",
-      "name" : "Testkalender"
-    },
-    "calendar2134" : {
-      "days" : {
-        "2017-9-18" : {
-          "-Ktv32YsmI_B1KK285z_" : {
-            "from" : "12:00",
-            "state" : "free",
-            "until" : "12:15"
-          },
-          "-asdasdasd" : {
-            "account" : "sonjah",
-            "description" : "Besprechung Titel",
-            "email" : "sonja.huber@gmail.com",
-            "from" : "14:00",
-            "person" : "Sonja H.",
-            "state" : "used",
-            "title" : "Bachelorarbeitbesprechung",
-            "until" : "15:00"
-          }
-        },
-        "2017-9-19" : {
-          "-bbbb" : {
-            "from" : "12:15",
-            "state" : "free",
-            "until" : "12:30"
-          },
-          "-kkkkk" : {
-            "from" : "12:00",
-            "state" : "closed",
-            "until" : "12:15"
-          }
-        }
-      },
-      "description" : "Set up a calendar",
-      "name" : "Sprechstunde Betriebsysteme"
-    }
-  }
+	"calendars" : {
+		"-KuGFx3yqJmKMs3rfJw4" : {
+		  "description" : "Habe ich zum Testen erstellt",
+		  "name" : "Testkalender"
+		},
+		"calendar2134" : {
+			"entries" : {
+				"-Ktv32YsmI_B1KK285z_" : {
+					"from" : "12:00",
+					"state" : "free",
+					"until" : "12:15",
+					"date" : "2017-9-18"
+				},
+				"-asdasdasd" : {
+					"account" : "sonjah",
+					"description" : "Besprechung Titel",
+					"email" : "sonja.huber@gmail.com",
+					"from" : "14:00",
+					"person" : "Sonja H.",
+					"state" : "used",
+					"title" : "Bachelorarbeitbesprechung",
+					"until" : "15:00",
+					"date" : "2017-9-18"
+				},
+				"-bbbb" : {
+					"from" : "12:15",
+					"state" : "free",
+					"until" : "12:30",
+					"date" : "2017-9-19"
+				},
+				"-kkkkk" : {
+					"from" : "12:00",
+					"state" : "closed",
+					"until" : "12:15",
+					"date" : "2017-9-19"
+				}
+			},
+			"description" : "Set up a calendar",
+			"name" : "Sprechstunde Betriebsysteme"
+		}
+	}
 }

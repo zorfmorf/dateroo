@@ -8,16 +8,17 @@
 </ion-header>
 
 <ion-content padding>
-	
+
 	<ion-list *ngIf="displayDay(0)">
 		<ion-list-header>
-		  <h1>{{getDayName(day0.$ref)}}</h1>
+		  <h1>{{getDayName(0)}}</h1>
 		</ion-list-header>
 
 		<ion-item *ngFor="let entry of day0 | async">
-			<ion-note item-start>14:00 - 14:30</ion-note>
-			<h2>{{getEntry(0, entry.$key).title | async}}</h2>
-			<p>{{entry.$key}}</p>
+			<ion-note item-start>{{entry.from}} - {{entry.until}}</ion-note>
+			<ion-note item-start>{{entry.person}}</ion-note>
+			<h2>{{entry.title}}</h2>
+			<p>{{entry.description}}</p>
 		</ion-item>
 	</ion-list>
 	
