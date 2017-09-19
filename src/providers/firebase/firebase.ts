@@ -17,6 +17,7 @@ export class FirebaseProvider {
 	}
 	
 	setCalendar(name) {
+		console.log(name)
 		this.currentCalendar = name;
 	}
 
@@ -30,6 +31,10 @@ export class FirebaseProvider {
 	
 	getCurrentCalendar() {
 		return this.currentCalendar;
+	}
+	
+	setCurrentCalendar(name : string) {
+		this.currentCalendar = name;
 	}
 	
 	getDay(day: string) {

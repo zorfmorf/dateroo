@@ -13,7 +13,8 @@
 	<ion-list>
 		<ion-item-sliding *ngFor="let calendar of calendars | async">
 			<ion-item>
-				<ion-icon *ngIf="calendar.$key === currentCalendar()" name="checkmark" item-end></ion-icon>
+				<ion-icon *ngIf="calendar.$key == currentCalendar()" name="checkmark" item-start></ion-icon>
+				<ion-icon (click)="selectCalendar(calendar.$key)" *ngIf="calendar.$key != currentCalendar()" name="radio-button-off" item-start></ion-icon>
 				<h2>{{ calendar.name }}</h2>
 				<p>{{ calendar.description }}</p>
 				<ion-item-options side="right">
@@ -24,6 +25,8 @@
 			</ion-item>
 		</ion-item-sliding>
 	</ion-list>
+	
+	<h3>Create a new calendar</h3>
 	
 	<ion-row>
 		<ion-col col-9>

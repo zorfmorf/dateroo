@@ -9,27 +9,32 @@ import { FirebaseListObservable } from 'angularfire2/database';
   templateUrl: 'calendars.html',
 })
 export class CalendarsPage {
-  calendars : FirebaseListObservable<any[]>;
-  newCalendarName = '';
-  newCalendarDescription = '';
+	calendars : FirebaseListObservable<any[]>;
+	newCalendarName = '';
+	newCalendarDescription = '';
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public firebaseProvider: FirebaseProvider) {
-	  this.calendars = this.firebaseProvider.getCalendars();
-  }
+	constructor(public navCtrl: NavController, public navParams: NavParams, public firebaseProvider: FirebaseProvider) {
+		this.calendars = this.firebaseProvider.getCalendars();
+	}
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad CalendarsPage');
-  }
+	ionViewDidLoad() {
+		console.log('ionViewDidLoad CalendarsPage');
+	}
 
-  addCalendar(name) {
-    this.firebaseProvider.addCalendar(this.newCalendarName, this.newCalendarDescription);
-  }
- 
-  removeCalendar(id) {
-    this.firebaseProvider.removeCalendar(id);
-  }
-  
-  currentCalendar() {
-	return this.firebaseProvider.getCurrentCalendar()
-  }
+	addCalendar(name) {
+		this.firebaseProvider.addCalendar(this.newCalendarName, this.newCalendarDescription);
+	}
+	
+	selectCalendar(name) {
+		console.log(name)
+		this.firebaseProvider.setCurrentCalendar(name);
+	}
+
+	removeCalendar(id) {
+		this.firebaseProvider.removeCalendar(id);
+	}
+
+	currentCalendar() {
+		return this.firebaseProvider.getCurrentCalendar()
+	}
 }

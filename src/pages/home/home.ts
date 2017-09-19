@@ -31,7 +31,7 @@ export class HomePage {
 	}
 	
 	displayDay(index) {
-		return true; //TODO implement
+		return true;
 	}
 	
 	getDay( day: string) {
