@@ -18,7 +18,7 @@ export class DatesPage {
 	entryMap : Map<string, FirebaseListObservable<any[]>> = new Map<string, FirebaseListObservable<any[]>>();
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, public firebaseProvider: FirebaseProvider) {
-		this.calendar = this.firebaseProvider.getCalendar();
+		this.calendar = this.firebaseProvider.getCurrentCalendar();
 		var date = new Date();
 		date.setDate(date.getDate() + this.dayOffset);
 		this.day0 = this.firebaseProvider.getDay(this.dateToString(date));

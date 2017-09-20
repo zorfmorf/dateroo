@@ -5,16 +5,16 @@
              <button ion-item menuClose (click)="openPage(homePage)">
                 Home
             </button>
-             <button ion-item menuClose (click)="openPage(datesPage)">
+             <button *ngIf="calendarIsLoaded()" ion-item menuClose (click)="openPage(datesPage)">
                 Dates
             </button>
-             <button ion-item menuClose (click)="openPage(bookPage)">
+             <button *ngIf="calendarIsLoaded()" ion-item menuClose (click)="openPage(bookPage)">
                 Book
             </button>
              <button ion-item menuClose (click)="openPage(calendarsPage)">
                 Calendars
             </button>
-            <button ion-item menuClose (click)="openPage(settingsPage)">
+            <button *ngIf="calendarIsLoaded()" ion-item menuClose (click)="openPage(settingsPage)">
                 Settings
             </button>
         </ion-list>

@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FirebaseProvider } from '../../providers/firebase/firebase';
-import { FirebaseListObservable } from 'angularfire2/database';
 
 @IonicPage()
 @Component({
@@ -9,7 +8,7 @@ import { FirebaseListObservable } from 'angularfire2/database';
   templateUrl: 'calendars.html',
 })
 export class CalendarsPage {
-	calendars : FirebaseListObservable<any[]>;
+	calendars : string[];
 	newCalendarName = '';
 	newCalendarDescription = '';
 	existingCalenderId = '';
@@ -22,24 +21,27 @@ export class CalendarsPage {
 		console.log('ionViewDidLoad CalendarsPage');
 	}
 
-	addCalendar(name) {
-		this.firebaseProvider.addCalendar(this.newCalendarName, this.newCalendarDescription);
+	addCalendar() {
+		this.firebaseProvider.addNewCalendar(this.newCalendarName, this.newCalendarDescription);
 	}
 	
-	addExistingCalender(id) {
-		
+	addExistingCalender() {
+		this.firebaseProvider.addCalendarIfExist(this.existingCalenderId);
+		this.calendars = this.firebaseProvider.getCalendars();
 	}
 	
 	selectCalendar(name) {
-		console.log(name)
+		console.log('Selected calendar ' + name);
 		this.firebaseProvider.setCurrentCalendar(name);
 	}
 
 	removeCalendar(id) {
+		console.log("Remove calendar with id " + id)
 		this.firebaseProvider.removeCalendar(id);
+		this.calendars = this.firebaseProvider.getCalendars();
 	}
 
 	currentCalendar() {
-		return this.firebaseProvider.getCurrentCalendar()
+		return this.firebaseProvider.getCurrentCalendar();
 	}
 }
