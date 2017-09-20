@@ -3,6 +3,8 @@ import { NavController, NavParams } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { SettingsPage } from '../settings/settings';
 import { CalendarsPage } from '../calendars/calendars';
+import { DatesPage } from '../dates/dates';
+import { BookPage } from '../book/book';
 
 @Component({
   selector: 'page-main',
@@ -14,13 +16,16 @@ export class MainPage {
   private homePage;
   private settingsPage;
   private calendarsPage;
+  private datesPage;
+  private bookPage;
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
       this.rootPage = HomePage;
-
 	  this.homePage = HomePage;
 	  this.settingsPage = SettingsPage;
 	  this.calendarsPage = CalendarsPage;
+	  this.datesPage = DatesPage;
+	  this.bookPage = BookPage;
   }
 
   ionViewDidLoad() {

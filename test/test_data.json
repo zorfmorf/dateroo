@@ -8,9 +8,8 @@
 			"entries" : {
 				"-Ktv32YsmI_B1KK285z_" : {
 					"from" : "12:00",
-					"state" : "free",
 					"until" : "12:15",
-					"date" : "2017-9-18"
+					"date" : "2017-9-20"
 				},
 				"-asdasdasd" : {
 					"account" : "sonjah",
@@ -18,22 +17,20 @@
 					"email" : "sonja.huber@gmail.com",
 					"from" : "14:00",
 					"person" : "Sonja H.",
-					"state" : "used",
+					"used" : "true",
 					"title" : "Bachelorarbeitbesprechung",
 					"until" : "15:00",
-					"date" : "2017-9-18"
+					"date" : "2017-9-20"
 				},
 				"-bbbb" : {
 					"from" : "12:15",
-					"state" : "free",
 					"until" : "12:30",
-					"date" : "2017-9-19"
+					"date" : "2017-9-21"
 				},
 				"-kkkkk" : {
 					"from" : "12:00",
-					"state" : "closed",
 					"until" : "12:15",
-					"date" : "2017-9-19"
+					"date" : "2017-9-21"
 				}
 			},
 			"description" : "Set up a calendar",

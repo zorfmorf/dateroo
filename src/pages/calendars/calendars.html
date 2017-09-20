@@ -14,29 +14,43 @@
 		<ion-item-sliding *ngFor="let calendar of calendars | async">
 			<ion-item>
 				<ion-icon *ngIf="calendar.$key == currentCalendar()" name="checkmark" item-start></ion-icon>
-				<ion-icon (click)="selectCalendar(calendar.$key)" *ngIf="calendar.$key != currentCalendar()" name="radio-button-off" item-start></ion-icon>
+				<ion-icon (click)="selectCalendar(calendar.$key)" *ngIf="calendar.$key != currentCalendar()" name="radio-button-off" item-start>
+				</ion-icon>
 				<h2>{{ calendar.name }}</h2>
 				<p>{{ calendar.description }}</p>
-				<ion-item-options side="right">
+				<ion-icon item-end>
 					<button ion-button color="danger" icon-only (click)="removeCalendar(calendar.$key)">
 						<ion-icon name="trash"></ion-icon>
 					</button>
-				</ion-item-options>
+				</ion-icon>
 			</ion-item>
 		</ion-item-sliding>
 	</ion-list>
+	
+	<h3>Add a calendar</h3>
+	<p>Add an existing calendar by providing the id</p>
+	<ion-row>
+		<ion-col col-9>
+			<ion-item>
+				<ion-input type="text" [(ngModel)]="existingCalenderId" placeholder="Calendar id"></ion-input>
+			</ion-item>
+		</ion-col>
+		<ion-col>
+			<button ion-button (click)="addExistingCalender()">Add!</button>
+		</ion-col>
+	</ion-row>
 	
 	<h3>Create a new calendar</h3>
 	
 	<ion-row>
 		<ion-col col-9>
-		  <ion-item>
-			<ion-input type="text" [(ngModel)]="newCalendarName" placeholder="Calendar name"></ion-input>
-			<ion-input type="text" [(ngModel)]="newCalendarDescription" placeholder="Calendar description"></ion-input>
-		  </ion-item>
+			<ion-item>
+				<ion-input type="text" [(ngModel)]="newCalendarName" placeholder="Calendar name"></ion-input>
+				<ion-input type="text" [(ngModel)]="newCalendarDescription" placeholder="Calendar description"></ion-input>
+			</ion-item>
 		</ion-col>
 		<ion-col>
-		  <button ion-button (click)="addCalendar()">Add!</button>
+			<button ion-button (click)="addCalendar()">Add!</button>
 		</ion-col>
 	</ion-row>
 </ion-content>

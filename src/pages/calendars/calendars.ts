@@ -12,6 +12,7 @@ export class CalendarsPage {
 	calendars : FirebaseListObservable<any[]>;
 	newCalendarName = '';
 	newCalendarDescription = '';
+	existingCalenderId = '';
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, public firebaseProvider: FirebaseProvider) {
 		this.calendars = this.firebaseProvider.getCalendars();
@@ -23,6 +24,10 @@ export class CalendarsPage {
 
 	addCalendar(name) {
 		this.firebaseProvider.addCalendar(this.newCalendarName, this.newCalendarDescription);
+	}
+	
+	addExistingCalender(id) {
+		
 	}
 	
 	selectCalendar(name) {

@@ -8,57 +8,44 @@
 </ion-header>
 
 <ion-content padding>
+	
+	<ion-row>
+		<ion-col>
+			<h3>Welcome to Dateroo</h3>
+			<p>Need to organize availability of you, your 3D printer or anything else? Dateroo is for you!</p>
+		</ion-col>
+	</ion-row>
 
-	<ion-list *ngIf="(day0 | async)?.length > 0">
-		<ion-list-header>
-		  <h1>{{getDayName(0)}}</h1>
-		</ion-list-header>
-
-		<ion-item *ngFor="let entry of day0 | async">
-			<ion-note item-start>{{entry.from}} - {{entry.until}}</ion-note>
-			<ion-note item-start>{{entry.person}}</ion-note>
-			<h2>{{entry.title}}</h2>
-			<p>{{entry.description}}</p>
+	<ion-list>
+		<ion-item>
+			<ion-icon name="checkmark" color="green" item-start></ion-icon>
+				<h2>Create your own calendar</h2>
+		</ion-item>
+		<ion-item>
+			<ion-icon name="checkmark" color="green" item-start></ion-icon>
+				<h2>Set up general and individual timeslots</h2>
+		</ion-item>
+		<ion-item>
+			<ion-icon name="checkmark" color="green" item-start></ion-icon>
+				<h2>Share the link or QR code</h2>
+		</ion-item>
+		<ion-item>
+			<ion-icon name="checkmark" color="green" item-start></ion-icon>
+				<h2>Never worry about organizing ever again</h2>
 		</ion-item>
 	</ion-list>
 	
-	<ion-list *ngIf="(day1 | async)?.length > 0">
-		<ion-list-header>
-		  <h1>{{getDayName(1)}}</h1>
-		</ion-list-header>
-
-		<ion-item *ngFor="let entry of day1 | async">
-			<ion-note item-start>{{entry.from}} - {{entry.until}}</ion-note>
-			<ion-note item-start>{{entry.person}}</ion-note>
-			<h2>{{entry.title}}</h2>
-			<p>{{entry.description}}</p>
-		</ion-item>
-	</ion-list>
+	<ion-row>
+		<ion-col>
+			<h3>Get the app</h3>
+			<p>App for Android, iOS and Windows Phone coming soon!</p>
+		</ion-col>
+	</ion-row>
 	
-	<ion-list *ngIf="(day2 | async)?.length > 0">
-		<ion-list-header>
-		  <h1>{{getDayName(2)}}</h1>
-		</ion-list-header>
-
-		<ion-item *ngFor="let entry of day2 | async">
-			<ion-note item-start>{{entry.from}} - {{entry.until}}</ion-note>
-			<ion-note item-start>{{entry.person}}</ion-note>
-			<h2>{{entry.title}}</h2>
-			<p>{{entry.description}}</p>
-		</ion-item>
-	</ion-list>
-	
-	<ion-list *ngIf="(day3 | async)?.length > 0">
-		<ion-list-header>
-		  <h1>{{getDayName(3)}}</h1>
-		</ion-list-header>
-
-		<ion-item *ngFor="let entry of day3 | async">
-			<ion-note item-start>{{entry.from}} - {{entry.until}}</ion-note>
-			<ion-note item-start>{{entry.person}}</ion-note>
-			<h2>{{entry.title}}</h2>
-			<p>{{entry.description}}</p>
-		</ion-item>
-	</ion-list>
+	<ion-row>
+		<ion-col>
+			<button ion-button (click)="openCalendars()">Get started!</button>
+		</ion-col>
+	</ion-row>
 	
 </ion-content>

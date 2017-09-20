@@ -1,0 +1,69 @@
+<ion-header>
+	<ion-navbar>
+		<ion-icon name="menu" menuToggle left></ion-icon>
+		<ion-title>
+			Dates
+		</ion-title>
+	</ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+	<ion-list *ngIf="(day0 | async)?.length > 0">
+		<ion-list-header>
+		  <h1>{{getDayName(0)}}</h1>
+		</ion-list-header>
+
+		<ion-item *ngFor="let entry of day0 | async">
+			<ion-note item-start>{{entry.from}} - {{entry.until}}</ion-note>
+			<ion-note item-start>{{entry.person}}</ion-note>
+			<div *ngIf="entry.used">
+				<h2>{{entry.title}}</h2>
+				<p>{{entry.description}}</p>
+			</div>
+			<div *ngIf="entry.used == null">
+				<h2>Free</h2>
+			</div>
+		</ion-item>
+	</ion-list>
+	
+	<ion-list *ngIf="(day1 | async)?.length > 0">
+		<ion-list-header>
+		  <h1>{{getDayName(1)}}</h1>
+		</ion-list-header>
+
+		<ion-item *ngFor="let entry of day1 | async">
+			<ion-note item-start>{{entry.from}} - {{entry.until}}</ion-note>
+			<ion-note item-start>{{entry.person}}</ion-note>
+			<h2>{{entry.title}}</h2>
+			<p>{{entry.description}}</p>
+		</ion-item>
+	</ion-list>
+	
+	<ion-list *ngIf="(day2 | async)?.length > 0">
+		<ion-list-header>
+		  <h1>{{getDayName(2)}}</h1>
+		</ion-list-header>
+
+		<ion-item *ngFor="let entry of day2 | async">
+			<ion-note item-start>{{entry.from}} - {{entry.until}}</ion-note>
+			<ion-note item-start>{{entry.person}}</ion-note>
+			<h2>{{entry.title}}</h2>
+			<p>{{entry.description}}</p>
+		</ion-item>
+	</ion-list>
+	
+	<ion-list *ngIf="(day3 | async)?.length > 0">
+		<ion-list-header>
+		  <h1>{{getDayName(3)}}</h1>
+		</ion-list-header>
+
+		<ion-item *ngFor="let entry of day3 | async">
+			<ion-note item-start>{{entry.from}} - {{entry.until}}</ion-note>
+			<ion-note item-start>{{entry.person}}</ion-note>
+			<h2>{{entry.title}}</h2>
+			<p>{{entry.description}}</p>
+		</ion-item>
+	</ion-list>
+	
+</ion-content>
