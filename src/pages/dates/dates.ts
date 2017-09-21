@@ -11,23 +11,29 @@ import { FirebaseListObservable } from 'angularfire2/database';
 export class DatesPage {
 	calendar : FirebaseListObservable<any[]>;
 	dayOffset = 0;
-	day0 : FirebaseListObservable<any[]> = null;
-	day1 : FirebaseListObservable<any[]> = null;
-	day2 : FirebaseListObservable<any[]> = null;
-	day3 : FirebaseListObservable<any[]> = null;
+	days = [];
 	entryMap : Map<string, FirebaseListObservable<any[]>> = new Map<string, FirebaseListObservable<any[]>>();
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, public firebaseProvider: FirebaseProvider) {
 		this.calendar = this.firebaseProvider.getCurrentCalendar();
 		var date = new Date();
 		date.setDate(date.getDate() + this.dayOffset);
-		this.day0 = this.firebaseProvider.getDay(this.dateToString(date));
-		date.setDate(date.getDate() + 1);
-		this.day1 = this.firebaseProvider.getDay(this.dateToString(date));
-		date.setDate(date.getDate() + 2);
-		this.day2 = this.firebaseProvider.getDay(this.dateToString(date));
-		date.setDate(date.getDate() + 3);
-		this.day3 = this.firebaseProvider.getDay(this.dateToString(date));
+		let list = [1, 2, 3, 4, 5, 6, 7];
+		for (let i in list) {
+			let day = this.dateToString(date);
+			this.firebaseProvider.getDay(day).map(list=>list.length).subscribe(length => {
+				this.addCalendar(day, length > 0);
+			});
+			date.setDate(date.getDate() + 1);
+		}
+	}
+
+	// Constructor helper
+	addCalendar(dayName, add) {
+		if (add) {
+			//console.log("dates: found valid data at " + dayName);
+			this.days.push([this.getDayName(dayName), this.firebaseProvider.getDay(dayName)]);
+		}
 	}
 
 	ionViewDidLoad() {
@@ -46,16 +52,16 @@ export class DatesPage {
         return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
 	}
 	
-	getDayName(number) {
-		if (this.dayOffset + number == 0) {
+	getDayName(dateName) {
+		var date = new Date();
+		if (this.dateToString(date) == dateName) {
 			return "Today";
 		}
-		if (this.dayOffset + number == 1) {
+		date.setDate(date.getDate() + 1);
+		if (this.dateToString(date) == dateName) {
 			return "Tomorrow";
 		}
-		var date = new Date();
-		date.setDate(date.getDate() + this.dayOffset + number);
-		return this.dateToString(date);
+		return dateName;
 	}
 	
 	getDayValue() {
