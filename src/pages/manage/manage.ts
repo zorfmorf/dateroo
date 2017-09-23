@@ -10,8 +10,10 @@ import { FirebaseProvider } from '../../providers/firebase/firebase';
 export class ManagePage {
 	
 	adminkey;
+	rules;
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, public firebaseProvider: FirebaseProvider) {
+		this.rules = this.firebaseProvider.getRules();
 	}
 
 	ionViewDidLoad() {
@@ -28,4 +30,17 @@ export class ManagePage {
 	isAdmin() {
 		return this.firebaseProvider.isAdmin();
 	}
+	
+	openAddTimeslot() {
+		
+	}
+	
+	openAddRule() {
+		
+	}
+	
+	getRule(rule) {
+		
+	}
+	
 }

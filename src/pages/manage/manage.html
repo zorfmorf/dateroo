@@ -1,6 +1,6 @@
 <ion-header>
 	<ion-navbar>
-		<ion-icon name="menu" menuToggle left></ion-icon>
+		<ion-icon name="menu" menuToggle left style="font-size: 30px;"></ion-icon>
 		<ion-title>
 			Manage
 		</ion-title>
@@ -29,8 +29,33 @@
 	
 	<ion-row *ngIf="isAdmin()" >
 		<ion-col>
-			<h4>Manage calendar</h4>
+			<h3>Add single timeslot</h3>
+			<p>Add a one-time timeslot</p>
+		</ion-col>
+		<ion-col>
+			<button ion-button (click)="openAddTimeslot">Add timeslot</button>
 		</ion-col>
 	</ion-row>
 	
+	<ion-row *ngIf="isAdmin()" >
+		<ion-col>
+			<h3>Add rule</h3>
+			<p>Add a general rule for timeslots</p>
+		</ion-col>
+		<ion-col>
+			<button ion-button (click)="openAddRule">Add rule</button>
+		</ion-col>
+	</ion-row>
+	
+	<div *ngIf="isAdmin()">
+		<ion-list *ngFor="let rule of rules">
+			<ion-list-header>
+				<h1>Rule {{ rule.start }}</h1>
+			</ion-list-header>
+
+			<ion-item>
+				Test
+			</ion-item>
+		</ion-list>
+	</div>
 </ion-content>

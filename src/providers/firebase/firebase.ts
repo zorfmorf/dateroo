@@ -54,12 +54,12 @@ export class FirebaseProvider {
 				if (cal[0] == id) {
 					var index = this.calendars.indexOf(cal);
 					this.calendars.splice(index, 1);
-					return;
 				}
 			}
 			this.currentCalendar = this.calendars[0][0];
 			this.admin = this.calendars[0][3];
 		}
+		this.storeCurrentCalendars();
 	}
 	
 	getCurrentCalendar() {
@@ -166,5 +166,9 @@ export class FirebaseProvider {
 	updateBookItem(ref, data) {
 		console.log(ref + data);
 		this.afd.list('/calendars/' + this.currentCalendar + '/entries/').update(ref, data);
+	}
+	
+	getRules() {
+		this.afd.list('/calendars/' + this.currentCalendar + '/rules/');
 	}
 }
