@@ -8,8 +8,17 @@
 </ion-header>
 
 <ion-content padding>
-
-	<h2 *ngIf="days.length == 0">No entries in this timeframe</h2>
+	<ion-row>
+		<ion-col>
+		</ion-col>
+		<ion-col>
+			<h4>{{getFromDate()}} to {{getToDate()}}</h4>
+		</ion-col>
+		<ion-col>
+		</ion-col>
+	</ion-row>
+	
+	<p *ngIf="days.length == 0">No entries in this timeframe</p>
 
 	<ion-list *ngFor="let day of days">
 		<ion-list-header>
@@ -28,5 +37,14 @@
 			</div>
 		</ion-item>
 	</ion-list>
+	
+	<ion-row>
+		<ion-col>
+			<button ion-button [disabled]="dayOffset <= 0" (click)="goBackward()">Back</button>
+		</ion-col>
+		<ion-col>
+			<button ion-button (click)="goForward()">Next</button>
+		</ion-col>
+	</ion-row>
 	
 </ion-content>

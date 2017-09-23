@@ -12,9 +12,13 @@ export class DatesPage {
 	calendar : FirebaseListObservable<any[]>;
 	dayOffset = 0;
 	days = [];
-	entryMap : Map<string, FirebaseListObservable<any[]>> = new Map<string, FirebaseListObservable<any[]>>();
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, public firebaseProvider: FirebaseProvider) {
+		this.init()
+	}
+	
+	init() {
+		this.days = [];
 		this.calendar = this.firebaseProvider.getCurrentCalendar();
 		var date = new Date();
 		date.setDate(date.getDate() + this.dayOffset);
@@ -52,6 +56,18 @@ export class DatesPage {
         return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
 	}
 	
+	getFromDate() {
+		var date = new Date();
+		date.setDate(date.getDate() + this.dayOffset);
+		return this.dateToString(date);
+	}
+	
+	getToDate() {
+		var date = new Date();
+		date.setDate(date.getDate() + this.dayOffset + 7);
+		return this.dateToString(date);
+	}
+	
 	getDayName(dateName) {
 		var date = new Date();
 		if (this.dateToString(date) == dateName) {
@@ -66,5 +82,15 @@ export class DatesPage {
 	
 	getDayValue() {
 		return new Date();
+	}
+	
+	goForward() {
+		this.dayOffset += 7;
+		this.init();
+	}
+	
+	goBackward() {
+		this.dayOffset -= 7;
+		this.init();
 	}
 }
