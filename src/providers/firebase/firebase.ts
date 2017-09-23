@@ -54,6 +54,8 @@ export class FirebaseProvider {
 					return;
 				}
 			}
+			this.currentCalendar = this.calendars[0][0];
+			this.admin = this.calendars[0][3];
 		}
 	}
 	
@@ -68,7 +70,15 @@ export class FirebaseProvider {
 	
 	setCurrentCalendar(name : string) {
 		if (name != null && name.length > 5 && name.length < 50) {
+			console.log("Switching to calendar " + name);
 			this.currentCalendar = name;
+			this.admin = false;
+			for (let cal of this.calendars) {
+				if (cal[0] == this.currentCalendar) {
+					this.admin = cal[3];
+					console.log("Current calendar is admin: " + cal[3]);
+				}
+			}
 			this.storage.set('currentCalendar', this.currentCalendar);
 			console.log('Saving current calendar to storage: ' + name);
 		} else {
@@ -89,18 +99,12 @@ export class FirebaseProvider {
 		this.afd.list('/calendars/' + name).map(list=>list.length).subscribe(length => this.addCalendar(length > 0, name, false) );
 	}
 	
-	updateCurrentCalendar(name) {
-		//if (this.calendars.length > 0 && (this.currentCalendar == null || this.currentCalendar.length < 1)) {
-		this.setCurrentCalendar(name);
-		//}
-	}
-	
 	// parameter is a dirty workaround
 	addCalendar(actuallyDoIt, name : string, isAdmin) {
 		if (actuallyDoIt && name.length < 40 && name.length > 5) {
 			this.afd.object('/calendars/' + name + '/').subscribe(loadedCal => { 
 				this.calendars.push([name, loadedCal.name, loadedCal.description, isAdmin == true]);
-				this.updateCurrentCalendar(name);
+				this.setCurrentCalendar(name);
 				this.storeCurrentCalendars();
 			});
 		} else {
@@ -114,8 +118,8 @@ export class FirebaseProvider {
 		for (let cal of this.calendars) {
 			if (!firstCalendar) {
 				value = value + '/';
-				firstCalendar = false;
 			}
+			firstCalendar = false;
 			value = value + cal[0] + ',' + cal[3];
 		}
 		this.storage.set('calendars', value);

@@ -93,4 +93,8 @@ export class DatesPage {
 		this.dayOffset -= 7;
 		this.init();
 	}
+	
+	isAdmin() {
+		return this.firebaseProvider.isAdmin();
+	}
 }

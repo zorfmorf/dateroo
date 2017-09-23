@@ -27,10 +27,11 @@
 
 		<ion-item *ngFor="let entry of day[1] | async">
 			<ion-note item-start>{{entry.from}} - {{entry.until}}</ion-note>
-			<ion-note item-start>{{entry.person}}</ion-note>
+			<ion-note item-start *ngIf="entry.used && isAdmin()">{{entry.person}}</ion-note>
 			<div *ngIf="entry.used">
-				<h2>{{entry.title}}</h2>
-				<p>{{entry.description}}</p>
+				<h2 *ngIf="isAdmin()">{{entry.title}}</h2>
+				<p *ngIf="isAdmin()">{{entry.description}}</p>
+				<h2 *ngIf="!isAdmin()">Booked</h2>
 			</div>
 			<div *ngIf="entry.used == null">
 				<h2>Free</h2>
