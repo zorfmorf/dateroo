@@ -44,4 +44,8 @@ export class CalendarsPage {
 	currentCalendarName() {
 		return this.firebaseProvider.getCurrentCalendarName();
 	}
+	
+	isAdmin() {
+		return this.firebaseProvider.isAdmin();
+	}
 }

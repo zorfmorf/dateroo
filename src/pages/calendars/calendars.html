@@ -17,6 +17,7 @@
 				<ion-icon (click)="selectCalendar(calendar[0])" *ngIf="calendar[0] != currentCalendarName()" name="radio-button-off" item-start></ion-icon>
 				<h2>{{ calendar[1] }}</h2>
 				<p>{{ calendar[2] }}</p>
+				<ion-icon *ngIf="isAdmin()" name="key" item-end></ion-icon>
 				<ion-icon item-end>
 					<button ion-button color="danger" icon-only (click)="removeCalendar(calendar[0])">
 						<ion-icon name="trash"></ion-icon>

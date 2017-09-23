@@ -8,5 +8,28 @@
 </ion-header>
 
 <ion-content padding>
-	<p>Manage this page</p>
+
+	<ion-row *ngIf="!isAdmin()" >
+		<ion-col>
+			<h4>Add admin key to manage calendar</h4>
+		</ion-col>
+	</ion-row>
+
+	<ion-row *ngIf="!isAdmin()">
+		<ion-col col-9>
+			<ion-item>
+				<ion-input type="text" [(ngModel)]="adminkey" placeholder="Admin key"></ion-input>
+			</ion-item>
+		</ion-col>
+		<ion-col>
+			<button ion-button (click)="authenticate()">Authenticate</button>
+		</ion-col>
+	</ion-row>
+	
+	<ion-row *ngIf="isAdmin()" >
+		<ion-col>
+			<h4>Manage calendar</h4>
+		</ion-col>
+	</ion-row>
+	
 </ion-content>

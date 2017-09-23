@@ -38,7 +38,7 @@ export const firebaseConfig = {
 	CalendarsPage,
 	DatesPage,
 	BookPage,
-	ManagePage
+	ManagePage,
   ],
   imports: [
     BrowserModule,
@@ -57,7 +57,7 @@ export const firebaseConfig = {
 	CalendarsPage,
 	DatesPage,
 	BookPage,
-	ManagePage
+	ManagePage,
   ],
   providers: [
     StatusBar,

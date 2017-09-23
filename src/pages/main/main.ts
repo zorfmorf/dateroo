@@ -31,13 +31,13 @@ export class MainPage {
 		
 		// now load any already loaded calendars from storage
 		this.storage.get('calendars').then((val) => {
-			console.log('Loading existing calendar data: ', val);
+			console.log('Loading existing calendar data: ' + val);
 			if (val != null) {
 				this.firebaseProvider.setCalendars(val.split('/'));
 			}
 		});
 		this.storage.get('currentCalendar').then((val) => {
-			console.log('Loading existing currentCalender: ', val);
+			console.log('Loading existing currentCalender: ' + val);
 			if (val != null) {
 				this.firebaseProvider.setCurrentCalendar(val);
 			}
