@@ -4,7 +4,7 @@ import { HomePage } from '../home/home';
 import { SettingsPage } from '../settings/settings';
 import { CalendarsPage } from '../calendars/calendars';
 import { DatesPage } from '../dates/dates';
-import { BookPage } from '../book/book';
+import { ManagePage } from '../manage/manage';
 import { Storage } from '@ionic/storage';
 import { FirebaseProvider } from '../../providers/firebase/firebase';
 
@@ -19,7 +19,7 @@ export class MainPage {
 	private settingsPage;
 	private calendarsPage;
 	private datesPage;
-	private bookPage;
+	private managePage;
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage, public firebaseProvider: FirebaseProvider) {
 		this.rootPage = HomePage;
@@ -27,7 +27,7 @@ export class MainPage {
 		this.settingsPage = SettingsPage;
 		this.calendarsPage = CalendarsPage;
 		this.datesPage = DatesPage;
-		this.bookPage = BookPage;
+		this.managePage = ManagePage;
 		
 		// now load any already loaded calendars from storage
 		this.storage.get('calendars').then((val) => {

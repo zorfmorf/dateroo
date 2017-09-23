@@ -1,10 +1,17 @@
 {
+	"keys" : {
+		"calendar2134" : "1234567890"
+	},
 	"calendars" : {
-		"-KuGFx3yqJmKMs3rfJw4" : {
-		  "description" : "Habe ich zum Testen erstellt",
-		  "name" : "Testkalender"
-		},
 		"calendar2134" : {
+			"rules" : {
+				"-112233447788" : {
+					"weekday" : "0",
+					"start" : "08:00",
+					"end" : "12:00",
+					"slot" : "30"
+				}
+			},
 			"entries" : {
 				"-Ktv32YsmI_B1KK285z_" : {
 					"from" : "12:00",
