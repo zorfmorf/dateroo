@@ -59,13 +59,13 @@ export class DatesPage {
 	getFromDate() {
 		var date = new Date();
 		date.setDate(date.getDate() + this.dayOffset);
-		return this.dateToString(date);
+		return date.getDate() + '.' + (date.getMonth() + 1) + '.';
 	}
 	
 	getToDate() {
 		var date = new Date();
 		date.setDate(date.getDate() + this.dayOffset + 7);
-		return this.dateToString(date);
+		return date.getDate() + '.' + (date.getMonth() + 1) + '.';
 	}
 	
 	getDayName(dateName) {
