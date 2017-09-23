@@ -41,7 +41,7 @@ export class CalendarsPage {
 		this.calendars = this.firebaseProvider.getCalendars();
 	}
 
-	currentCalendar() {
-		return this.firebaseProvider.getCurrentCalendar();
+	currentCalendarName() {
+		return this.firebaseProvider.getCurrentCalendarName();
 	}
 }

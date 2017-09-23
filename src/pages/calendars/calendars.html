@@ -13,8 +13,8 @@
 	<ion-list>
 		<ion-item-sliding *ngFor="let calendar of calendars">
 			<ion-item>
-				<ion-icon *ngIf="calendar[0] == currentCalendar()" name="checkmark" item-start></ion-icon>
-				<ion-icon (click)="selectCalendar(calendar[0])" *ngIf="calendar[0] != currentCalendar()" name="radio-button-off" item-start></ion-icon>
+				<ion-icon *ngIf="calendar[0] == currentCalendarName()" name="checkmark" item-start></ion-icon>
+				<ion-icon (click)="selectCalendar(calendar[0])" *ngIf="calendar[0] != currentCalendarName()" name="radio-button-off" item-start></ion-icon>
 				<h2>{{ calendar[1] }}</h2>
 				<p>{{ calendar[2] }}</p>
 				<ion-icon item-end>

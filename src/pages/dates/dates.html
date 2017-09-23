@@ -9,7 +9,9 @@
 
 <ion-content padding>
 
-	<ion-list *ngFor="let day of days"> <!--*ngIf="(day0 | async)?.length > 0"> -->
+	<h2 *ngIf="days.length == 0">No entries in this timeframe</h2>
+
+	<ion-list *ngFor="let day of days">
 		<ion-list-header>
 		  <h1>{{ day[0] }}</h1>
 		</ion-list-header>

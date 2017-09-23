@@ -54,9 +54,14 @@ export class FirebaseProvider {
 		return this.afd.list('/calendars/' + this.currentCalendar + '/');
 	}
 	
+	getCurrentCalendarName() {
+		return this.currentCalendar;
+	}
+	
 	setCurrentCalendar(name : string) {
 		this.currentCalendar = name;
 		this.storage.set('currentCalendar', this.currentCalendar);
+		console.log('Saving current calendar to storage: ' + name);
 	}
 	
 	getDay(day: string) {
@@ -72,23 +77,29 @@ export class FirebaseProvider {
 		this.afd.list('/calendars/' + name).map(list=>list.length).subscribe(length => this.addCalendar(length > 0, name) );
 	}
 	
-	updateCurrentCalendar() {
-		if (this.calendars.length > 0 && (this.currentCalendar == null || this.currentCalendar.length < 1)) {
-			this.currentCalendar = this.calendars[0];
-		}
+	updateCurrentCalendar(name) {
+		//if (this.calendars.length > 0 && (this.currentCalendar == null || this.currentCalendar.length < 1)) {
+		this.setCurrentCalendar(name);
+		//}
 	}
 	
 	// parameter is a dirty workaround
 	addCalendar(actuallyDoIt, name : string) {
-		if (actuallyDoIt) {
+		if (actuallyDoIt && name.length < 32) {
 			this.afd.object('/calendars/' + name + '/').subscribe(loadedCal => { 
 				this.calendars.push([name, loadedCal.name, loadedCal.description]);
-				this.updateCurrentCalendar();
+				this.updateCurrentCalendar(name);
 				let value = '';
+				let firstCalendar = true;
 				for (let cal of this.calendars) {
+					if (!firstCalendar) {
+						value = value + '/';
+						firstCalendar = false;
+					}
 					value = value + cal[0];
 				}
 				this.storage.set('calendars', value);
+				console.log('Saving current calendars to storage: ' + value);
 			});
 		} else {
 			console.log('Failed to load calendar with name ' + name);

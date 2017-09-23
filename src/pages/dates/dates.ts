@@ -22,14 +22,14 @@ export class DatesPage {
 		for (let i in list) {
 			let day = this.dateToString(date);
 			this.firebaseProvider.getDay(day).map(list=>list.length).subscribe(length => {
-				this.addCalendar(day, length > 0);
+				this.addCalendar(day, length > 0, i);
 			});
 			date.setDate(date.getDate() + 1);
 		}
 	}
 
 	// Constructor helper
-	addCalendar(dayName, add) {
+	addCalendar(dayName, add, unusedParameter) {
 		if (add) {
 			//console.log("dates: found valid data at " + dayName);
 			this.days.push([this.getDayName(dayName), this.firebaseProvider.getDay(dayName)]);

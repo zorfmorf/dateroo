@@ -2,11 +2,8 @@
 
     <ion-content>
         <ion-list>
-             <button ion-item menuClose (click)="openPage(homePage)">
-                Home
-            </button>
              <button *ngIf="calendarIsLoaded()" ion-item menuClose (click)="openPage(datesPage)">
-                Dates
+                Calendar
             </button>
              <button *ngIf="calendarIsLoaded()" ion-item menuClose (click)="openPage(bookPage)">
                 Book
