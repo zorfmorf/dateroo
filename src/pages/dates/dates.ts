@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FirebaseProvider } from '../../providers/firebase/firebase';
 import { FirebaseListObservable } from 'angularfire2/database';
+import { BookPage } from '../book/book';
 
 @IonicPage()
 @Component({
@@ -9,12 +10,14 @@ import { FirebaseListObservable } from 'angularfire2/database';
   templateUrl: 'dates.html',
 })
 export class DatesPage {
+	nav;
 	calendar : FirebaseListObservable<any[]>;
 	dayOffset = 0;
 	days = [];
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, public firebaseProvider: FirebaseProvider) {
-		this.init()
+		this.init();
+		this.nav = navCtrl;
 	}
 	
 	init() {
@@ -94,7 +97,25 @@ export class DatesPage {
 		this.init();
 	}
 	
+	getPersonName(name) {
+		if (name != null && name.length > 0 && !this.isAdmin()) {
+			let res = '';
+			for (let v of name.split(' ')) {
+				if (v != null && v.length > 0) {
+					res += v[0] + '. ';
+				}
+			}
+			return res;
+		}
+		return name;
+	}
+	
 	isAdmin() {
 		return this.firebaseProvider.isAdmin();
+	}
+	
+	book(entry) {
+		this.firebaseProvider.setBookItem(entry);
+		this.nav.push(BookPage);
 	}
 }

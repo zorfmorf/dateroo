@@ -9,5 +9,41 @@
 
 
 <ion-content padding>
-	<p>Book entry</p>
+	<h3>Book entry</h3>
+	<p>Date: {{entry.date}}</p>
+	<p>From: {{entry.from}}</p>
+	<p>Until: {{entry.until}}</p>
+	<ion-row>
+		<ion-col>
+			<ion-item>
+				<ion-input type="text" [(ngModel)]="inputName" placeholder="Name"></ion-input>
+			</ion-item>
+		</ion-col>
+	</ion-row>
+	<ion-row>
+		<ion-col>
+			<ion-item>
+				<ion-input type="text" [(ngModel)]="inputTitle" placeholder="Short title"></ion-input>
+			</ion-item>
+		</ion-col>
+	</ion-row>
+	<ion-row>
+		<ion-col>
+			<ion-item>
+				<ion-input type="text" [(ngModel)]="inputDescription" placeholder="Longer description"></ion-input>
+			</ion-item>
+		</ion-col>
+	</ion-row>
+	<ion-row>
+		<ion-col>
+			<ion-item>
+				<ion-input type="text" [(ngModel)]="inputEmail" placeholder="(Optional) email"></ion-input>
+			</ion-item>
+		</ion-col>
+	</ion-row>
+	<ion-row>
+		<ion-col>
+			<button ion-button [disabled]="!isSendable()" (click)="sendChanges()">Book</button>
+		</ion-col>
+	</ion-row>
 </ion-content>

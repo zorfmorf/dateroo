@@ -10,6 +10,9 @@ export class FirebaseProvider {
 	currentCalendar;
 	calendars = [];
 	admin = false;
+	
+	// the item currently being booked
+	bookItem;
 
 	constructor(public afd: AngularFireDatabase, private storage: Storage) { }
 	
@@ -150,5 +153,18 @@ export class FirebaseProvider {
 			}
 			this.storeCurrentCalendars();
 		}
+	}
+	
+	setBookItem(item) {
+		this.bookItem = item;
+	}
+	
+	getBookItem() {
+		return this.bookItem;
+	}
+	
+	updateBookItem(ref, data) {
+		console.log(ref + data);
+		this.afd.list('/calendars/' + this.currentCalendar + '/entries/').update(ref, data);
 	}
 }

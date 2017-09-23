@@ -48,4 +48,9 @@ export class CalendarsPage {
 	isAdmin() {
 		return this.firebaseProvider.isAdmin();
 	}
+	
+	addExampleCalendar() {
+		this.firebaseProvider.addCalendarIfExist('calendar2134');
+		this.calendars = this.firebaseProvider.getCalendars();
+	}
 }
