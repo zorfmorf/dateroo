@@ -3,17 +3,17 @@
     <ion-content>
         <ion-list>
              <button *ngIf="calendarIsLoaded()" ion-item menuClose (click)="openPage(datesPage)">
-                Calendar
+                View
             </button>
              <button *ngIf="calendarIsLoaded()" ion-item menuClose (click)="openPage(bookPage)">
-                Book
+                Manage
             </button>
              <button ion-item menuClose (click)="openPage(calendarsPage)">
                 Calendars
             </button>
-            <button *ngIf="calendarIsLoaded()" ion-item menuClose (click)="openPage(settingsPage)">
+            <!--<button *ngIf="calendarIsLoaded()" ion-item menuClose (click)="openPage(settingsPage)">
                 Settings
-            </button>
+            </button>-->
         </ion-list>
     </ion-content>
 
