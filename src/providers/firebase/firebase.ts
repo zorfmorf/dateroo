@@ -45,6 +45,7 @@ export class FirebaseProvider {
 	}
 
 	removeCalendar(id) {
+		console.log('Remove calendar called');
 		//this.afd.list('/calendars/').remove(id);
 		if (this.calendars.length < 2) {
 			this.calendars = [];
@@ -72,7 +73,7 @@ export class FirebaseProvider {
 	}
 	
 	setCurrentCalendar(name : string) {
-		if (name != null && name.length > 5 && name.length < 50) {
+		if (name != null && name.length > 5 && name.length < 50 && this.currentCalendar != name) {
 			console.log("Switching to calendar " + name);
 			this.currentCalendar = name;
 			this.admin = false;
@@ -104,8 +105,9 @@ export class FirebaseProvider {
 	
 	// parameter is a dirty workaround
 	addCalendar(actuallyDoIt, name : string, isAdmin) {
+		console.log('Add calendar called');
 		if (actuallyDoIt && name.length < 40 && name.length > 5) {
-			this.afd.object('/calendars/' + name + '/').subscribe(loadedCal => { 
+			this.afd.object('/calendars/' + name + '/').subscribe(loadedCal => {
 				this.calendars.push([name, loadedCal.name, loadedCal.description, isAdmin == true]);
 				this.setCurrentCalendar(name);
 				this.storeCurrentCalendars();
@@ -170,5 +172,10 @@ export class FirebaseProvider {
 	
 	getRules() {
 		this.afd.list('/calendars/' + this.currentCalendar + '/rules/');
+	}
+	
+	addEntry(data) {
+		console.log("Adding entry with data " + data);
+		this.afd.list('/calendars/' + this.currentCalendar + '/entries/').push(data);
 	}
 }

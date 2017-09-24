@@ -14,6 +14,8 @@ import { CalendarsPage } from '../pages/calendars/calendars';
 import { DatesPage } from '../pages/dates/dates';
 import { BookPage } from '../pages/book/book';
 import { ManagePage } from '../pages/manage/manage';
+import { AddtimePage } from '../pages/addtime/addtime';
+import { AddrulePage } from '../pages/addrule/addrule';
 
 import { HttpModule } from '@angular/http';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
@@ -39,6 +41,8 @@ export const firebaseConfig = {
 	DatesPage,
 	BookPage,
 	ManagePage,
+	AddtimePage,
+	AddrulePage
   ],
   imports: [
     BrowserModule,
@@ -58,6 +62,8 @@ export const firebaseConfig = {
 	DatesPage,
 	BookPage,
 	ManagePage,
+	AddtimePage,
+	AddrulePage
   ],
   providers: [
     StatusBar,

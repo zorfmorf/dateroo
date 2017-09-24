@@ -1,0 +1,50 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Add Time</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+	<h3>Create new entries</h3>
+	<p>If you set a increments of 30 minutes and three repeats, four entries will be created </p>
+	<ion-row>
+		<ion-col>
+			<h4>Date</h4>
+			<ion-item>
+				<ion-input type="date" [(ngModel)]="date"></ion-input>
+			</ion-item>
+		</ion-col>
+	</ion-row>
+	<ion-row>
+		<ion-col>
+			<h4>Start</h4>
+			<ion-item>
+				<ion-input type="time" [(ngModel)]="from"></ion-input>
+			</ion-item>
+		</ion-col>
+	</ion-row>
+	<ion-row>
+		<ion-col>
+			<h4>Increments (minutes)</h4>
+			<ion-item>
+				<ion-input type="number" [(ngModel)]="increments"></ion-input>
+			</ion-item>
+		</ion-col>
+	</ion-row>
+	<ion-row>
+		<ion-col>
+			<h4>Repeats</h4>
+			<ion-item>
+				<ion-input type="number" [(ngModel)]="repeats" default="0"></ion-input>
+			</ion-item>
+		</ion-col>
+	</ion-row>
+	<ion-row>
+		<ion-col>
+			<button ion-button [disabled]="!isSendable()" (click)="createEntry()">Create</button>
+		</ion-col>
+	</ion-row>
+</ion-content>

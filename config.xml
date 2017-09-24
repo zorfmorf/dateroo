@@ -94,4 +94,5 @@
         <variable name="MAX_STORE" value="2" />
     </plugin>
     <plugin name="cordova-sqlite-storage" spec="^2.0.4" />
+    <plugin name="cordova-plugin-datepicker" spec="^0.9.3" />
 </widget>
