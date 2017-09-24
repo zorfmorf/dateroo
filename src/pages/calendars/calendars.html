@@ -11,7 +11,7 @@
 	<p>A list of configured calendars. Select a calendar to activate it.</p>
 	
 	<ion-list>
-		<ion-item-sliding *ngFor="let calendar of calendars">
+		<ion-item-sliding *ngFor="let calendar of calendars; let i = index">
 			<ion-item>
 				<ion-icon *ngIf="calendar[0] == currentCalendarName()" name="checkmark" item-start></ion-icon>
 				<ion-icon (click)="selectCalendar(calendar[0])" *ngIf="calendar[0] != currentCalendarName()" name="radio-button-off" item-start></ion-icon>
@@ -19,7 +19,7 @@
 				<p>{{ calendar[2] }}</p>
 				<ion-icon *ngIf="calendar[3]" name="key" item-end></ion-icon>
 				<ion-icon item-end>
-					<button ion-button color="danger" icon-only (click)="removeCalendar(calendar[0])">
+					<button ion-button color="danger" icon-only (click)="removeCalendar(i)">
 						<ion-icon name="trash"></ion-icon>
 					</button>
 				</ion-icon>

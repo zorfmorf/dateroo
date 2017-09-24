@@ -36,7 +36,7 @@ export class CalendarsPage {
 	}
 
 	removeCalendar(id) {
-		console.log("Remove calendar with id " + id)
+		console.log("CalendarsPage: Remove calendar at index " + id)
 		this.firebaseProvider.removeCalendar(id);
 		this.calendars = this.firebaseProvider.getCalendars();
 	}

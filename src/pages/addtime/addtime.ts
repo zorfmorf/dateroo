@@ -54,7 +54,7 @@ export class AddtimePage {
 			});
 			i += 1;
 		}
-		//this.nav.pop();
+		this.nav.pop();
 	}
 	
 	dateToString(date) {

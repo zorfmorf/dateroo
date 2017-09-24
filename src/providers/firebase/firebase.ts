@@ -26,6 +26,7 @@ export class FirebaseProvider {
 	}
 	
 	setCalendars(names : string[]) {
+		console.log("Setting calendars to new value " + names);
 		for (let cal of names) {
 			let entry = cal.split(',');
 			if (entry.length == 2 && entry[0].length > 5) {
@@ -44,19 +45,13 @@ export class FirebaseProvider {
 		this.addCalendar(true, this.afd.list('/calendars/').push({ name: name, description: description }).key, true);
 	}
 
-	removeCalendar(id) {
-		console.log('Remove calendar called');
-		//this.afd.list('/calendars/').remove(id);
+	removeCalendar(index) {
+		console.log('Firebase: Remove calendar #' + index);
 		if (this.calendars.length < 2) {
 			this.calendars = [];
 			this.currentCalendar = '';
 		} else {
-			for (let cal of this.calendars) {
-				if (cal[0] == id) {
-					var index = this.calendars.indexOf(cal);
-					this.calendars.splice(index, 1);
-				}
-			}
+			this.calendars.splice(index, 1);
 			this.currentCalendar = this.calendars[0][0];
 			this.admin = this.calendars[0][3];
 		}
@@ -105,8 +100,8 @@ export class FirebaseProvider {
 	
 	// parameter is a dirty workaround
 	addCalendar(actuallyDoIt, name : string, isAdmin) {
-		console.log('Add calendar called');
-		if (actuallyDoIt && name.length < 40 && name.length > 5) {
+		console.log('Add calendar called ' + name);
+		if (actuallyDoIt && name.length < 40 && name.length > 5 && this.countCalenderOccurence(name) == 0) {
 			this.afd.object('/calendars/' + name + '/').subscribe(loadedCal => {
 				this.calendars.push([name, loadedCal.name, loadedCal.description, isAdmin == true]);
 				this.setCurrentCalendar(name);
@@ -117,15 +112,53 @@ export class FirebaseProvider {
 		}
 	}
 	
+	
+	countCalenderOccurence(name) {
+		let i = 0;
+		for (let cal of this.calendars) {
+			if (cal[0] == name) {
+				i++;
+			}
+		}
+		console.log('Count calender occurence ' + name + ' ' + i);
+		return i;
+	}
+	
+	cleanCalenders() {
+		let cals = [];
+		let rmvs = [];
+		let i = 0;
+		this.calendars.reverse();
+		for (let cal of this.calendars) {
+			if (cals.indexOf(cal[0]) > -1) {
+				rmvs.push([cal[0], i]);
+			} else {
+				cals.push(cal[0]);
+			}
+			i++;
+		}
+		this.calendars.reverse();
+		i = 0;
+		for (let cal of rmvs) {
+			this.removeCalendar(cal[1] - i);
+			i++;
+		}
+	}
+	
 	storeCurrentCalendars() {
+		this.cleanCalenders();
 		let value = '';
 		let firstCalendar = true;
 		for (let cal of this.calendars) {
-			if (!firstCalendar) {
-				value = value + '/';
+			if (this.countCalenderOccurence(cal[0]) == 1) {
+				if (!firstCalendar) {
+					value = value + '/';
+				}
+				firstCalendar = false;
+				value = value + cal[0] + ',' + cal[3];
+			} else {
+				console.log("Duplicate calender found on store " + cal[0]);
 			}
-			firstCalendar = false;
-			value = value + cal[0] + ',' + cal[3];
 		}
 		this.storage.set('calendars', value);
 		console.log('Saving current calendars to storage: ' + value);
@@ -177,5 +210,6 @@ export class FirebaseProvider {
 	addEntry(data) {
 		console.log("Adding entry with data " + data);
 		this.afd.list('/calendars/' + this.currentCalendar + '/entries/').push(data);
+		console.log("Finished adding object with " + data);
 	}
 }
