@@ -12,8 +12,8 @@ export class AddtimePage {
 	nav;
 	date;
 	from;
-	repeats;
-	increments;
+	repeats = 1;
+	increments = 30;
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, public firebaseProvider: FirebaseProvider) {
 		this.nav = navCtrl;
@@ -24,7 +24,7 @@ export class AddtimePage {
 	}
 	
 	isSendable() {
-		return this.date != null && this.date.length > 0 && this.from != null && this.from.length > 0 && this.repeats != null && this.repeats.length > 0 != null && this.increments != null && this.increments.length > 0;
+		return this.date != null && this.date.length > 0 && this.from != null && this.from.length > 0;
 	}
 	
 	// adds x minutes to the time thingy
@@ -46,7 +46,7 @@ export class AddtimePage {
 	
 	createEntry(data) {
 		let i = 0;
-		while (i <= this.repeats) {
+		while (i < this.repeats) {
 			this.firebaseProvider.addEntry({
 				'date' : this.date.replace('-0', '-'),
 				'from' : this.addTime(this.from, i * this.increments),
