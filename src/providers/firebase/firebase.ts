@@ -200,7 +200,9 @@ export class FirebaseProvider {
 	
 	updateBookItem(ref, data) {
 		console.log(ref + data);
+		let state = this.getCurrentCalendarState();
 		this.afd.list('/calendars/' + this.currentCalendar + '/entries/').update(ref, data);
+		this.setCurrentCalendarState(state);
 	}
 	
 	getRules() {
@@ -209,7 +211,42 @@ export class FirebaseProvider {
 	
 	addEntry(data) {
 		console.log("Adding entry with data " + data);
+		let state = this.getCurrentCalendarState();
 		this.afd.list('/calendars/' + this.currentCalendar + '/entries/').push(data);
+		this.setCurrentCalendarState(state);
 		console.log("Finished adding object with " + data);
+	}
+	
+	getCurrentCalendarState() {
+		let cals = [];
+		let admins = [];
+		for (let cal of this.calendars) {
+			if (cals.indexOf(cal[0]) < 0) {
+				cals.push([cal[0], cal[1]]);
+			}
+			if (cal[1]) {
+				admins.push(cal[0]);
+			}
+		}
+		for (let adminCal of admins) {
+			for (let cal of cals) {
+				if (cal[0] == adminCal) {
+					cal[1] = true;
+				}
+			}
+		}
+		return [
+			cals,
+			this.currentCalendar
+		];
+	}
+	
+	setCurrentCalendarState(data) {
+		this.currentCalendar = "";
+		this.calendars = [];
+		for (let cal of data[0]) {
+			this.addCalendar(true, cal[0], cal[1]);
+		}
+		this.currentCalendar = data[1];
 	}
 }
