@@ -217,6 +217,14 @@ export class FirebaseProvider {
 		console.log("Finished adding object with " + data);
 	}
 	
+	addRule(data) {
+		console.log("Adding rule with data " + data);
+		let state = this.getCurrentCalendarState();
+		this.afd.list('/calendars/' + this.currentCalendar + '/rules/').push(data);
+		this.setCurrentCalendarState(state);
+		console.log("Finished adding object with " + data);
+	}
+	
 	getCurrentCalendarState() {
 		let cals = [];
 		let admins = [];

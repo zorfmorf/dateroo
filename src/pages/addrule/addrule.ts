@@ -1,12 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the AddrulePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { FirebaseProvider } from '../../providers/firebase/firebase';
 
 @IonicPage()
 @Component({
@@ -14,12 +8,32 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'addrule.html',
 })
 export class AddrulePage {
+	
+	nav;
+	day;
+	from;
+	repeats = 1;
+	increments = 30;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+	constructor(public navCtrl: NavController, public navParams: NavParams, public firebaseProvider: FirebaseProvider) {
+		this.nav = navCtrl;
+	}
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad AddrulePage');
-  }
+	ionViewDidLoad() {
+		console.log('ionViewDidLoad AddrulePage');
+	}
 
+	isSendable() {
+		return this.day != null && this.day.length > 0 && this.from != null && this.from.length > 0;
+	}
+	
+	createRule() {
+		this.firebaseProvider.addRule({
+			'day' : this.day,
+			'from' : this.from,
+			'duration' : this.increments,
+			'count' : this.repeats
+		});
+		this.nav.pop();
+	}
 }
