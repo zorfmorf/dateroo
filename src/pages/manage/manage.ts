@@ -43,8 +43,23 @@ export class ManagePage {
 		this.nav.push(AddrulePage);
 	}
 	
-	getRule(rule) {
-		
+	getKey() {
+		return this.firebaseProvider.getCurrentCalendarName();
+	}
+	
+	removeRule(ref) {
+		console.log("Deleting rule " + ref);
+		this.firebaseProvider.deleteRule(ref);
+	}
+	
+	getWeekday(value) {
+		if (value == 0) { return "Sunday"; }
+		if (value == 1) { return "Monday"; }
+		if (value == 2) { return "Tuesday"; }
+		if (value == 3) { return "Wednesday"; }
+		if (value == 4) { return "Thursday"; }
+		if (value == 5) { return "Friday"; }
+		if (value == 6) { return "Saturday"; }
 	}
 	
 }

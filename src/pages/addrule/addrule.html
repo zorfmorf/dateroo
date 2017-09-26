@@ -12,8 +12,8 @@
 	<h3>E.g. you can set up a rule for timeslots from 08:00 to 12:00 every monday and 30 minutes each</h3>
 	<ion-row>
 		<ion-col>
-			<ion-label>Day</ion-label>
-			<ion-select [(ngModel)]="day">
+			<h4>Day</h4>
+			<ion-select [(ngModel)]="weekday">
 				<ion-option value="1">Monday</ion-option>
 				<ion-option value="2">Tuesday</ion-option>
 				<ion-option value="3">Wednesday</ion-option>
@@ -28,7 +28,7 @@
 		<ion-col>
 			<h4>Start time of first entry</h4>
 			<ion-item>
-				<ion-input type="time" [(ngModel)]="from"></ion-input>
+				<ion-input type="time" [(ngModel)]="start"></ion-input>
 			</ion-item>
 		</ion-col>
 	</ion-row>
@@ -36,7 +36,7 @@
 		<ion-col>
 			<h4>Length of entry (minutes)</h4>
 			<ion-item>
-				<ion-input type="number" [(ngModel)]="increments"></ion-input>
+				<ion-input type="number" [(ngModel)]="duration"></ion-input>
 			</ion-item>
 		</ion-col>
 	</ion-row>
@@ -44,7 +44,7 @@
 		<ion-col>
 			<h4>Number of entries</h4>
 			<ion-item>
-				<ion-input type="number" [(ngModel)]="repeats"></ion-input>
+				<ion-input type="number" [(ngModel)]="slots"></ion-input>
 			</ion-item>
 		</ion-col>
 	</ion-row>

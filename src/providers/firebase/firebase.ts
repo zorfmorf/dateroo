@@ -206,7 +206,7 @@ export class FirebaseProvider {
 	}
 	
 	getRules() {
-		this.afd.list('/calendars/' + this.currentCalendar + '/rules/');
+		return this.afd.list('/calendars/' + this.currentCalendar + '/rules/');
 	}
 	
 	addEntry(data) {
@@ -256,5 +256,11 @@ export class FirebaseProvider {
 			this.addCalendar(true, cal[0], cal[1]);
 		}
 		this.currentCalendar = data[1];
+	}
+	
+	deleteRule(ref) {
+		let state = this.getCurrentCalendarState();
+		this.afd.list('/calendars/' + this.currentCalendar + '/rules/').remove(ref);
+		this.setCurrentCalendarState(state);
 	}
 }

@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FirebaseProvider } from '../../providers/firebase/firebase';
 import { FirebaseListObservable } from 'angularfire2/database';
 import { BookPage } from '../book/book';
+import { CalendarsPage } from '../calendars/calendars';
 
 @IonicPage()
 @Component({
@@ -117,5 +118,13 @@ export class DatesPage {
 	book(entry) {
 		this.firebaseProvider.setBookItem(entry);
 		this.nav.push(BookPage);
+	}
+	
+	openCalendars() {
+		this.nav.push(CalendarsPage);
+	}
+	
+	isCalendarLoaded() {
+		return this.firebaseProvider.getCurrentCalendar() != null;
 	}
 }

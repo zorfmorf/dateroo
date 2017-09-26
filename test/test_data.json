@@ -6,17 +6,17 @@
 		"calendar2134" : {
 			"rules" : {
 				"-112233447788" : {
-					"weekday" : "0",
+					"weekday" : "1",
 					"start" : "08:00",
-					"end" : "12:00",
-					"slot" : "30"
+					"duration" : "60",
+					"slots" : "4"
 				}
 			},
 			"entries" : {
 				"-Ktv32YsmI_B1KK285z_" : {
 					"from" : "12:00",
 					"until" : "12:15",
-					"date" : "2017-9-24"
+					"date" : "2017-9-27"
 				},
 				"-asdasdasd" : {
 					"description" : "Besprechung Titel",
@@ -26,21 +26,21 @@
 					"used" : "true",
 					"title" : "Bachelorarbeitbesprechung",
 					"until" : "15:00",
-					"date" : "2017-9-24"
+					"date" : "2017-9-27"
 				},
 				"-bbbb" : {
 					"from" : "12:15",
 					"until" : "12:30",
-					"date" : "2017-9-25"
+					"date" : "2017-9-28"
 				},
 				"-kkkkk" : {
 					"from" : "12:00",
 					"until" : "12:15",
-					"date" : "2017-9-25"
+					"date" : "2017-9-28"
 				}
 			},
-			"description" : "Nerv mich nicht mit Emails oder anrufen, komm einfach vorbei wenn ich Zeit habe",
-			"name" : "Sprechstunde Betriebsysteme"
+			"description" : "Einfach einen freien Terminslot belegen und dann vorbeikommen",
+			"name" : "Sprechstunde Embedded Systems"
 		}
 	}
 }

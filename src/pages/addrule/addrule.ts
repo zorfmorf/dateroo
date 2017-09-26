@@ -10,10 +10,10 @@ import { FirebaseProvider } from '../../providers/firebase/firebase';
 export class AddrulePage {
 	
 	nav;
-	day;
-	from;
-	repeats = 1;
-	increments = 30;
+	weekday = 0;
+	start;
+	slots = 1;
+	duration = 30;
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, public firebaseProvider: FirebaseProvider) {
 		this.nav = navCtrl;
@@ -24,15 +24,15 @@ export class AddrulePage {
 	}
 
 	isSendable() {
-		return this.day != null && this.day.length > 0 && this.from != null && this.from.length > 0;
+		return this.start != null && this.start.length > 0;
 	}
 	
 	createRule() {
 		this.firebaseProvider.addRule({
-			'day' : this.day,
-			'from' : this.from,
-			'duration' : this.increments,
-			'count' : this.repeats
+			'weekday' : this.weekday,
+			'start' : this.start,
+			'duration' : this.duration,
+			'slots' : this.slots
 		});
 		this.nav.pop();
 	}
