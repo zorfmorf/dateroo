@@ -23,6 +23,7 @@ import { AngularFireModule } from 'angularfire2';
 import { FirebaseProvider } from '../providers/firebase/firebase';
 
 import { IonicStorageModule } from '@ionic/storage';
+import { NgxQRCodeModule } from 'ngx-qrcode2';
 
 export const firebaseConfig = {
   apiKey: "AIzaSyBc5prANnQMuEfMxM75vA3dSzpKkR7HMBA",
@@ -51,7 +52,8 @@ export const firebaseConfig = {
     AngularFireModule.initializeApp(firebaseConfig),
     IonicModule.forRoot(MyApp),
     DatesPageModule,
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    NgxQRCodeModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

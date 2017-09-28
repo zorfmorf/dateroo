@@ -3,7 +3,6 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FirebaseProvider } from '../../providers/firebase/firebase';
 import { AddtimePage } from '../addtime/addtime';
 import { AddrulePage } from '../addrule/addrule';
-
 @IonicPage()
 @Component({
   selector: 'page-manage',
@@ -14,10 +13,12 @@ export class ManagePage {
 	adminkey;
 	rules;
 	nav;
+	url; // Direct url to this calendar
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, public firebaseProvider: FirebaseProvider) {
 		this.rules = this.firebaseProvider.getRules();
 		this.nav = navCtrl;
+		this.url = "dateroo.de/#/calendar/" + this.getKey();
 	}
 
 	ionViewDidLoad() {
@@ -51,7 +52,8 @@ export class ManagePage {
 		console.log("Deleting rule " + ref);
 		this.firebaseProvider.deleteRule(ref);
 	}
-	
+
+
 	getWeekday(value) {
 		if (value == 0) { return "Sunday"; }
 		if (value == 1) { return "Monday"; }

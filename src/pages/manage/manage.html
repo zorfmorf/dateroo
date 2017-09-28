@@ -29,11 +29,20 @@
 	
 	<ion-row *ngIf="isAdmin()" >
 		<ion-col>
-			<h3>Calendar key</h3>
-			<p>Share this direct link <b>www.aborium.com/#/calendar/{{getKey()}}</b></p>
-			<p>Or this QR code: <b>TODO</b></p>
-			<p>Or this key <b>{{getKey()}}</b></p>
+			<h3>Share your calendar</h3>
+			<p>Share this QR code or link: <b>{{url}}</b></p>
 		</ion-col>
+	</ion-row>
+
+	<ion-row *ngIf="isAdmin()" >
+		<ion-col *ngIf="url">
+		    <ngx-qrcode [qrc-value]="url"></ngx-qrcode>
+	  	</ion-col>
+	</ion-row>
+	<ion-row *ngIf="isAdmin()" >
+		<ion-col>
+			<p>Or this key: <b>{{getKey()}}</b></p>
+	  	</ion-col>
 	</ion-row>
 	
 	<ion-row *ngIf="isAdmin()" >
