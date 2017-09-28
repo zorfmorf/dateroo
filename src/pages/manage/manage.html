@@ -30,9 +30,9 @@
 	<ion-row *ngIf="isAdmin()" >
 		<ion-col>
 			<h3>Calendar key</h3>
-			<p>Share this key <b>{{getKey()}}</b></p>
-			<p>Or this link <b>www.aborium.com/dateroo?key={{getKey()}}</b></p>
+			<p>Share this direct link <b>www.aborium.com/#/calendar/{{getKey()}}</b></p>
 			<p>Or this QR code: <b>TODO</b></p>
+			<p>Or this key <b>{{getKey()}}</b></p>
 		</ion-col>
 	</ion-row>
 	

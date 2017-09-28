@@ -9,5 +9,8 @@ import { DatesPage } from './dates';
   imports: [
     IonicPageModule.forChild(DatesPage),
   ],
+  entryComponents: [
+    DatesPage
+  ]
 })
 export class DatesPageModule {}

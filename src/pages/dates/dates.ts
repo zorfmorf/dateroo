@@ -5,24 +5,32 @@ import { FirebaseListObservable } from 'angularfire2/database';
 import { BookPage } from '../book/book';
 import { CalendarsPage } from '../calendars/calendars';
 
-@IonicPage()
+@IonicPage({
+  segment: 'calendar/:id'
+})
 @Component({
   selector: 'page-dates',
   templateUrl: 'dates.html',
 })
 export class DatesPage {
+	existingId;
 	nav;
 	calendar : FirebaseListObservable<any[]>;
 	dayOffset = 0;
 	days = [];
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, public firebaseProvider: FirebaseProvider) {
+		console.log("Found existing calendar with id " + navParams.get("id"));
+		this.existingId = navParams.get("id");
 		this.init();
 		this.nav = navCtrl;
 	}
 	
 	init() {
 		this.days = [];
+		if (this.existingId != null && this.existingId.length > 0) {
+			this.firebaseProvider.addCalendarIfExist(this.existingId);
+		}
 		this.calendar = this.firebaseProvider.getCurrentCalendar();
 		var date = new Date();
 		date.setDate(date.getDate() + this.dayOffset);

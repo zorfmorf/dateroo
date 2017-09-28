@@ -11,7 +11,7 @@ import { MainPage } from '../pages/main/main';
 import { HomePage } from '../pages/home/home';
 import { SettingsPage } from '../pages/settings/settings';
 import { CalendarsPage } from '../pages/calendars/calendars';
-import { DatesPage } from '../pages/dates/dates';
+import { DatesPageModule } from '../pages/dates/dates.module';
 import { BookPage } from '../pages/book/book';
 import { ManagePage } from '../pages/manage/manage';
 import { AddtimePage } from '../pages/addtime/addtime';
@@ -38,7 +38,7 @@ export const firebaseConfig = {
 	MainPage,
 	SettingsPage,
 	CalendarsPage,
-	DatesPage,
+	//DatesPage,
 	BookPage,
 	ManagePage,
 	AddtimePage,
@@ -50,6 +50,7 @@ export const firebaseConfig = {
     AngularFireDatabaseModule,
     AngularFireModule.initializeApp(firebaseConfig),
     IonicModule.forRoot(MyApp),
+    DatesPageModule,
     IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
@@ -59,7 +60,7 @@ export const firebaseConfig = {
 	MainPage,
 	SettingsPage,
 	CalendarsPage,
-	DatesPage,
+	//DatesPage,
 	BookPage,
 	ManagePage,
 	AddtimePage,
