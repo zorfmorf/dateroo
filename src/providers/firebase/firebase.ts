@@ -86,6 +86,41 @@ export class FirebaseProvider {
 	}
 	
 	getDay(day: string) {
+		let modified = false;
+		let state = this.getCurrentCalendarState();
+		this.afd.list('/calendars/' + this.currentCalendar + '/entries/', {
+			query: {
+				orderByChild: 'date',
+				equalTo: day
+			}
+		}).subscribe(d => {
+			this.getRules().subscribe(rules => {
+				for (let rule of rules) {
+					let dateObject = new Date(day);
+					if (dateObject.getDay() == rule.weekday) {
+						let hasRule = false;
+						for (let entry of d) {
+							if (entry.rule != null && entry.rule == rule.$key) { hasRule = true; }
+							if (entry.from == rule.start)  { hasRule = true; }
+						}
+						if (!hasRule) {
+							modified = true;
+							let counter = 0;
+							while (counter < rule.slots) {
+								this.addEntry({
+									'date' : day,
+									'from' : this.addTime(rule.start, counter * rule.duration),
+									'until' : this.addTime(rule.start, (counter + 1) * rule.duration),
+									'rule' : rule.$key
+								});
+								counter++;
+							}
+						}
+					}
+				}
+			});
+		});
+		if (modified) { this.setCurrentCalendarState(state); }
 		return this.afd.list('/calendars/' + this.currentCalendar + '/entries/', {
 			query: {
 				orderByChild: 'date',
@@ -262,5 +297,22 @@ export class FirebaseProvider {
 		let state = this.getCurrentCalendarState();
 		this.afd.list('/calendars/' + this.currentCalendar + '/rules/').remove(ref);
 		this.setCurrentCalendarState(state);
+	}
+	
+	// adds x minutes to the time thingy, copied from addtime
+	addTime(time, amount) {
+		let s = time.split(':');
+		let h = Number(s[0]);
+		let m = Number(s[1]) + amount;
+		while (m > 59) {
+			m -= 60;
+			h += 1;
+		}
+		let result = '';
+		if (h < 10) { result += '0'}
+		result += h + ':';
+		if (m < 10) { result += '0'}
+		result += m;
+		return result;
 	}
 }
