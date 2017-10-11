@@ -46,11 +46,14 @@ export class AddtimePage {
 	
 	createEntry(data) {
 		let i = 0;
+		let date = new Date();
+		date.setDate(date.getDate() - 5000);
 		while (i < this.repeats) {
 			this.firebaseProvider.addEntry({
 				'date' : this.date.replace('-0', '-'),
 				'from' : this.addTime(this.from, i * this.increments),
-				'until' : this.addTime(this.from, (i + 1) * this.increments)
+				'until' : this.addTime(this.from, (i + 1) * this.increments),
+				'timestamp' : date.getTime()
 			});
 			i += 1;
 		}

@@ -32,7 +32,8 @@ export class AddrulePage {
 			'weekday' : this.weekday,
 			'start' : this.start,
 			'duration' : this.duration,
-			'slots' : this.slots
+			'slots' : this.slots,
+			'timestamp' : new Date().getTime()
 		});
 		this.nav.pop();
 	}
