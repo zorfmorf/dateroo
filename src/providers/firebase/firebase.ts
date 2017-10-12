@@ -13,8 +13,11 @@ export class FirebaseProvider {
 	
 	// the item currently being booked
 	bookItem;
+	rules;
 
-	constructor(public afd: AngularFireDatabase, private storage: Storage) { }
+	constructor(public afd: AngularFireDatabase, private storage: Storage) {
+		this.rules = this.afd.list('/calendars/' + this.currentCalendar + '/rules/');
+	}
 	
 	getCalendars() {
 		return this.calendars;
@@ -84,51 +87,17 @@ export class FirebaseProvider {
 			console.log('Failed to set currentCalendar ' + name);
 		}
 	}
+
+	updateRulesUntil(day: string) {
+		for (let rule of this.rules) {
+			if (rule.updatedUntil < day) {
+
+			}
+			this.rules.update(rule.$key, { updatedUntil : day });
+		}
+	}
 	
-	getDay(day: string) {		
-		//let state = this.getCurrentCalendarState();
-		this.afd.list('/calendars/' + this.currentCalendar + "/updates/" + day + "/modified").subscribe(timestamp => {
-			console.log("Loading day with timestamp " + timestamp);
-			this.afd.list('/calendars/' + this.currentCalendar + '/entries/', {
-				query: {
-					orderByChild: 'date',
-					equalTo: day
-				}
-			}).subscribe(d => {
-				this.getRules().subscribe(rules => {
-					let modified = false;
-					console.log("Now iterating over rules");
-					for (let rule of rules) {
-						let dateObject = new Date(day);
-						if (dateObject.getDay() == rule.weekday) {
-							if (timestamp == null || timestamp < rule.timestamp) {
-								console.log("Now adding entries to day " + day);
-								if (!modified || modified < rule.timestamp) {
-									modified = rule.timestamp;
-									console.log("Now setting modified " + modified);
-								}
-								let counter = 0;
-								while (counter < rule.slots) {
-									this.addEntryLight({
-										'date' : day,
-										'from' : this.addTime(rule.start, counter * rule.duration),
-										'until' : this.addTime(rule.start, (counter + 1) * rule.duration),
-										'rule' : rule.$key
-									});
-									console.log("Creating entry " + day + " " + this.addTime(rule.start, counter * rule.duration));
-									counter++;
-								}
-							}
-						}
-					}
-					console.log("modified " + modified)
-					if (modified) { 
-						//this.setCurrentCalendarState(state);
-						this.afd.list('/calendars/' + this.currentCalendar + "/updates/").set(day, {modified});
-					}
-				});
-			});
-		});
+	getDay(day: string) {
 		return this.afd.list('/calendars/' + this.currentCalendar + '/entries/', {
 			query: {
 				orderByChild: 'date',
@@ -249,7 +218,7 @@ export class FirebaseProvider {
 	}
 	
 	getRules() {
-		return this.afd.list('/calendars/' + this.currentCalendar + '/rules/');
+		return this.rules;
 	}
 	
 	addEntryLight(data) {
