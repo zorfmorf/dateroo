@@ -4,15 +4,6 @@
 	},
 	"calendars" : {
 		"calendar2134" : {
-			"rules" : {
-				"-112233447788" : {
-					"weekday" : "1",
-					"start" : "08:00",
-					"duration" : "60",
-					"slots" : "4",
-					"updatedUntil" : "1507751849935"
-				}
-			},
 			"entries" : {
 				"-Ktv32YsmI_B1KK285z_" : {
 					"from" : "12:00",

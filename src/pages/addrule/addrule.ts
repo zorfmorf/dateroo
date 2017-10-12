@@ -28,12 +28,17 @@ export class AddrulePage {
 	}
 	
 	createRule() {
+		let finalDate = new Date();
+		finalDate.setDate(finalDate.getDate() + 100);
 		this.firebaseProvider.addRule({
 			'weekday' : this.weekday,
 			'start' : this.start,
 			'duration' : this.duration,
 			'slots' : this.slots,
-			'timestamp' : new Date().getTime()
+			'updatedUntil' : new Date().getTime()
+		}).then( rule => {
+			console.log("CREATING ENTRYS FOR NEW CALENDAR");
+			this.firebaseProvider.updateRulesUntil(finalDate.getTime());
 		});
 		this.nav.pop();
 	}

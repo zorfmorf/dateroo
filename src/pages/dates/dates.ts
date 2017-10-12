@@ -35,11 +35,6 @@ export class DatesPage {
 		let date = new Date();
 		date.setDate(date.getDate() + this.dayOffset);
 
-		// make sure to update rules
-		let finalDate = new Date();
-		finalDate.setDate(date.getDate() + this.dayOffset + 10);
-		this.firebaseProvider.updateRulesUntil(finalDate);
-
 		let list = [1, 2, 3, 4, 5, 6, 7];
 		for (let i in list) {
 			let day = this.dateToString(date);

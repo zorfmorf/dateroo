@@ -13,10 +13,10 @@ export class FirebaseProvider {
 	
 	// the item currently being booked
 	bookItem;
-	rules;
+	rulesMutex;
 
 	constructor(public afd: AngularFireDatabase, private storage: Storage) {
-		this.rules = this.afd.list('/calendars/' + this.currentCalendar + '/rules/');
+		this.rulesMutex = 0;
 	}
 	
 	getCalendars() {
@@ -88,13 +88,37 @@ export class FirebaseProvider {
 		}
 	}
 
-	updateRulesUntil(day: string) {
-		for (let rule of this.rules) {
-			if (rule.updatedUntil < day) {
-
+	updateRulesUntil(day) {
+		console.log('Update rules on load ' + this.rulesMutex + " " + day);
+		this.getRules().subscribe(rules => {
+			console.log('Checking rules');
+			for (let rule of rules) {
+				console.log('Checking rule ' + rule.$key + " with timestamp " + rule.updatedUntil);
+				if (rule.updatedUntil < day) {
+					let ruleDate = rule.updatedUntil;
+					this.getRules().update(rule.$key, { updatedUntil : day });
+					let dateObject = new Date(ruleDate);
+					while(dateObject.getTime() < day) {
+						dateObject.setDate(dateObject.getDate() + 1);
+						if (dateObject.getDay() == rule.weekday) {
+							let counter = 0;
+							while (counter < rule.slots) {
+								this.afd.list('/calendars/' + this.currentCalendar + '/entries/').push({
+									'date' : this.dateToString(dateObject),
+									'from' : this.addTime(rule.start, counter * rule.duration),
+									'until' : this.addTime(rule.start, (counter + 1) * rule.duration),
+									'rule' : rule.$key
+								});
+								//promise.then(this.rulesMutex += 1).catch(this.rulesMutex += 1);
+								
+								console.log("Creating entry " + day + " " + this.addTime(rule.start, counter * rule.duration));
+								counter++;
+							}
+						}
+					}
+				}
 			}
-			this.rules.update(rule.$key, { updatedUntil : day });
-		}
+		});
 	}
 	
 	getDay(day: string) {
@@ -218,7 +242,7 @@ export class FirebaseProvider {
 	}
 	
 	getRules() {
-		return this.rules;
+		return this.afd.list('/calendars/' + this.currentCalendar + '/rules/');
 	}
 	
 	addEntryLight(data) {
@@ -236,9 +260,10 @@ export class FirebaseProvider {
 	addRule(data) {
 		console.log("Adding rule with data " + data);
 		let state = this.getCurrentCalendarState();
-		this.afd.list('/calendars/' + this.currentCalendar + '/rules/').push(data);
+		const p = this.afd.list('/calendars/' + this.currentCalendar + '/rules/').push(data);
 		this.setCurrentCalendarState(state);
 		console.log("Finished adding object with " + data);
+		return p;
 	}
 	
 	getCurrentCalendarState() {
@@ -295,5 +320,9 @@ export class FirebaseProvider {
 		if (m < 10) { result += '0'}
 		result += m;
 		return result;
+	}
+	
+	dateToString(date) {
+        return date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
 	}
 }
