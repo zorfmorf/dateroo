@@ -13,10 +13,9 @@ export class FirebaseProvider {
 	
 	// the item currently being booked
 	bookItem;
-	rulesMutex;
 
 	constructor(public afd: AngularFireDatabase, private storage: Storage) {
-		this.rulesMutex = 0;
+		
 	}
 	
 	getCalendars() {
@@ -24,8 +23,17 @@ export class FirebaseProvider {
 	}
 	
 	getCalendar(name) {
-		console.log("Load calender with name " + name);
+		//console.log("Load calender with name " + name);
 		return this.afd.list('/calendars/' + name + '/');
+	}
+	
+	deleteEntry(entry) {
+		console.log("Remove entry " + entry.$key);
+		this.afd.list('/calendars/' + this.currentCalendar + '/entries/').remove(entry.$key);
+	}
+	
+	cancelEntry(entry) {
+		this.afd.list('/calendars/' + this.currentCalendar + '/entries/').update(entry.$key, { cancel : true });
 	}
 	
 	setCalendars(names : string[]) {
@@ -33,12 +41,12 @@ export class FirebaseProvider {
 		for (let cal of names) {
 			let entry = cal.split(',');
 			if (entry.length == 2 && entry[0].length > 5) {
-				console.log('Loading calendar: ' + cal);
+				//console.log('Loading calendar: ' + cal);
 				this.currentCalendar = entry[0];
 				this.admin = (entry[1] == 'true');
 				this.addCalendar(true, entry[0], entry[1] == 'true');
 			} else {
-				console.log('Firebase: failed to load calendar from storage: ' + cal);
+				//console.log('Firebase: failed to load calendar from storage: ' + cal);
 			}
 		}
 	}
@@ -49,7 +57,7 @@ export class FirebaseProvider {
 	}
 
 	removeCalendar(index) {
-		console.log('Firebase: Remove calendar #' + index);
+		//console.log('Firebase: Remove calendar #' + index);
 		if (this.calendars.length < 2) {
 			this.calendars = [];
 			this.currentCalendar = '';
@@ -72,31 +80,31 @@ export class FirebaseProvider {
 	
 	setCurrentCalendar(name : string) {
 		if (name != null && name.length > 5 && name.length < 50 && this.currentCalendar != name) {
-			console.log("Switching to calendar " + name);
+			//console.log("Switching to calendar " + name);
 			this.currentCalendar = name;
 			this.admin = false;
 			for (let cal of this.calendars) {
 				if (cal[0] == this.currentCalendar) {
 					this.admin = cal[3];
-					console.log("Current calendar is admin: " + cal[3]);
+					//console.log("Current calendar is admin: " + cal[3]);
 				}
 			}
 			this.storage.set('currentCalendar', this.currentCalendar);
-			console.log('Saving current calendar to storage: ' + name);
+			//console.log('Saving current calendar to storage: ' + name);
 		} else {
-			console.log('Failed to set currentCalendar ' + name);
+			//console.log('Failed to set currentCalendar ' + name);
 		}
 	}
 
 	updateRulesUntil(day) {
-		console.log('Update rules on load ' + this.rulesMutex + " " + day);
+		console.log('Update rules on load ' + day);
 		this.getRules().subscribe(rules => {
 			console.log('Checking rules');
 			for (let rule of rules) {
 				console.log('Checking rule ' + rule.$key + " with timestamp " + rule.updatedUntil);
 				if (rule.updatedUntil < day) {
 					let ruleDate = rule.updatedUntil;
-					this.getRules().update(rule.$key, { updatedUntil : day });
+					//this.getRules().update(rule.$key, { updatedUntil : day });
 					let dateObject = new Date(ruleDate);
 					while(dateObject.getTime() < day) {
 						dateObject.setDate(dateObject.getDate() + 1);
@@ -109,7 +117,6 @@ export class FirebaseProvider {
 									'until' : this.addTime(rule.start, (counter + 1) * rule.duration),
 									'rule' : rule.$key
 								});
-								//promise.then(this.rulesMutex += 1).catch(this.rulesMutex += 1);
 								
 								console.log("Creating entry " + day + " " + this.addTime(rule.start, counter * rule.duration));
 								counter++;
@@ -119,6 +126,26 @@ export class FirebaseProvider {
 				}
 			}
 		});
+	}
+	
+	updateSingleRuleUntil(data, day) {
+		let ruleDate = data.updatedUntil;
+		let dateObject = new Date(ruleDate);
+		while(dateObject.getTime() < day) {
+			dateObject.setDate(dateObject.getDate() + 1);
+			if (dateObject.getDay() == data.weekday) {
+				let counter = 0;
+				while (counter < data.slots) {
+					this.afd.list('/calendars/' + this.currentCalendar + '/entries/').push({
+						'date' : this.dateToString(dateObject),
+						'from' : this.addTime(data.start, counter * data.duration),
+						'until' : this.addTime(data.start, (counter + 1) * data.duration)
+					});
+					console.log("Creating entry " + day + " " + this.addTime(data.start, counter * data.duration));
+					counter++;
+				}
+			}
+		}
 	}
 	
 	getDay(day: string) {
@@ -136,7 +163,7 @@ export class FirebaseProvider {
 	
 	// parameter is a dirty workaround
 	addCalendar(actuallyDoIt, name : string, isAdmin) {
-		console.log('Add calendar called ' + name);
+		//console.log('Add calendar called ' + name);
 		if (actuallyDoIt && name.length < 40 && name.length > 5 && this.countCalenderOccurence(name) == 0) {
 			this.afd.object('/calendars/' + name + '/').subscribe(loadedCal => {
 				this.calendars.push([name, loadedCal.name, loadedCal.description, isAdmin == true]);
@@ -144,7 +171,7 @@ export class FirebaseProvider {
 				this.storeCurrentCalendars();
 			});
 		} else {
-			console.log('Failed to load calendar with name ' + name);
+			//console.log('Failed to load calendar with name ' + name);
 		}
 	}
 	
@@ -156,7 +183,7 @@ export class FirebaseProvider {
 				i++;
 			}
 		}
-		console.log('Count calender occurence ' + name + ' ' + i);
+		//console.log('Count calender occurence ' + name + ' ' + i);
 		return i;
 	}
 	
@@ -197,7 +224,7 @@ export class FirebaseProvider {
 			}
 		}
 		this.storage.set('calendars', value);
-		console.log('Saving current calendars to storage: ' + value);
+		//console.log('Saving current calendars to storage: ' + value);
 	}
 	
 	// of current selected calendar

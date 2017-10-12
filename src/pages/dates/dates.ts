@@ -4,6 +4,7 @@ import { FirebaseProvider } from '../../providers/firebase/firebase';
 import { FirebaseListObservable } from 'angularfire2/database';
 import { BookPage } from '../book/book';
 import { CalendarsPage } from '../calendars/calendars';
+import { AlertController } from 'ionic-angular';
 
 @IonicPage({
   segment: 'calendar/:id'
@@ -19,7 +20,7 @@ export class DatesPage {
 	dayOffset = 0;
 	days = [];
 
-	constructor(public navCtrl: NavController, public navParams: NavParams, public firebaseProvider: FirebaseProvider) {
+	constructor(public navCtrl: NavController, public navParams: NavParams, public firebaseProvider: FirebaseProvider, public alertCtrl: AlertController) {
 		console.log("Found existing calendar with id " + navParams.get("id"));
 		this.existingId = navParams.get("id");
 		this.init();
@@ -127,6 +128,56 @@ export class DatesPage {
 	book(entry) {
 		this.firebaseProvider.setBookItem(entry);
 		this.nav.push(BookPage);
+	}
+	
+	del(entry) {
+		const alert = this.alertCtrl.create({
+		title: 'Confirm deletion',
+		message: 'Do you want to delete this entry?',
+		buttons: [
+			{
+				text: 'No',
+				handler: () => {
+					console.log('No clicked');
+				}
+			},
+			{
+				text: 'Yes, delete!',
+				role: 'cancel',
+				handler: () => {
+					console.log('Yes clicked');
+					this.firebaseProvider.deleteEntry(entry);
+					this.init();
+				}
+			}
+		]
+		});
+		alert.present();
+	}
+	
+	cancel(entry) {
+		const alert = this.alertCtrl.create({
+		title: 'Confirm cancel',
+		message: 'Do you want to cancel this entry?',
+		buttons: [
+			{
+				text: 'No',
+				handler: () => {
+					console.log('No clicked');
+				}
+			},
+			{
+				text: 'Yes, cancel!',
+				role: 'cancel',
+				handler: () => {
+					console.log('Yes clicked');
+					this.firebaseProvider.cancelEntry(entry);
+					this.init();
+				}
+			}
+		]
+		});
+		alert.present();
 	}
 	
 	openCalendars() {

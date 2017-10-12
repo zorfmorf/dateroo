@@ -69,17 +69,21 @@
 
 		<ion-item *ngFor="let entry of day[1] | async">
 			<ion-note item-start>{{entry.from}} - {{entry.until}}</ion-note>
-			<ion-note item-start *ngIf="entry.used">{{getPersonName(entry.person)}}</ion-note>
-			<div *ngIf="entry.used">
+			<ion-note item-start *ngIf="entry.used && !entry.cancel">{{getPersonName(entry.person)}}</ion-note>
+			<div *ngIf="entry.used && !entry.cancel">
 				<h2 *ngIf="isAdmin()">{{entry.title}}</h2>
 				<p *ngIf="isAdmin()">{{entry.description}}</p>
 				<h2 *ngIf="!isAdmin()">Booked</h2>
 			</div>
-			<div *ngIf="entry.used == null">
+			<div *ngIf="entry.used == null && !entry.cancel">
 				<h2>Free</h2>
-				
 			</div>
-			<ion-note *ngIf="entry.used == null" item-end><button ion-button (click)="book(entry)">Book</button></ion-note>
+			<div *ngIf="entry.cancel">
+				<h2>Canceled</h2>
+			</div>
+			<ion-note *ngIf="entry.used == null && !entry.cancel" item-end><button ion-button (click)="book(entry)">Book</button></ion-note>
+			<ion-note *ngIf="entry.used != null && isAdmin() && !entry.cancel" item-end><button ion-button (click)="cancel(entry)" color="danger" >Cancel</button></ion-note>
+			<ion-note *ngIf="entry.used == null && isAdmin() && !entry.cancel" item-end><button ion-button (click)="del(entry)" color="danger" >Delete</button></ion-note>
 		</ion-item>
 	</ion-list>
 	
@@ -93,3 +97,9 @@
 	</ion-row>
 	
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+	<b>Imprint</b> Sebastian Tauch, Kurze Lemppen 2, 80975 Ulm, spam@aborium.de
+  </ion-toolbar>
+</ion-footer>
