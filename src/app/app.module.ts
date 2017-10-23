@@ -21,6 +21,7 @@ import { HttpModule } from '@angular/http';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireModule } from 'angularfire2';
 import { FirebaseProvider } from '../providers/firebase/firebase';
+import { EmailComposer } from '@ionic-native/email-composer';
 
 import { IonicStorageModule } from '@ionic/storage';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
@@ -70,6 +71,7 @@ export const firebaseConfig = {
   ],
   providers: [
     StatusBar,
+	EmailComposer,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     FirebaseProvider
