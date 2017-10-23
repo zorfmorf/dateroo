@@ -22,7 +22,7 @@ export class MainPage {
 	private managePage;
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, private storage: Storage, public firebaseProvider: FirebaseProvider) {
-		this.rootPage = DatesPage;
+		this.rootPage = HomePage;
 		this.homePage = HomePage;
 		this.settingsPage = SettingsPage;
 		this.calendarsPage = CalendarsPage;

@@ -2,58 +2,12 @@
 	<ion-navbar>
 		<ion-icon name="menu" menuToggle left style="font-size: 30px;"></ion-icon>
 		<ion-title>
-			View
+			View Calender
 		</ion-title>
 	</ion-navbar>
 </ion-header>
 
-<ion-content *ngIf="!isCalendarLoaded()" padding>
-	
-	<ion-row>
-		<ion-col>
-			<h3>Welcome to Dateroo</h3>
-			<p>Need to organize availability of you, your 3D printer or anything else? Dateroo is for you!</p>
-			<p>Usable on the web and your favourite phone</p>
-		</ion-col>
-	</ion-row>
-
-	<ion-list>
-		<ion-item>
-			<ion-icon name="checkmark" color="green" item-start></ion-icon>
-				<h2>Create your own calendar</h2>
-		</ion-item>
-		<ion-item>
-			<ion-icon name="checkmark" color="green" item-start></ion-icon>
-				<h2>Set up general and individual timeslots</h2>
-		</ion-item>
-		<ion-item>
-			<ion-icon name="checkmark" color="green" item-start></ion-icon>
-				<h2>Share the link or QR code</h2>
-		</ion-item>
-		<ion-item>
-			<ion-icon name="checkmark" color="green" item-start></ion-icon>
-				<h2>Never worry about organizing ever again</h2>
-		</ion-item>
-	</ion-list>
-	
-	<ion-row>
-		<ion-col>
-			<h3>Use the app</h3>
-			<p>App for Android, iOS and Windows Phone coming soon!</p>
-		</ion-col>
-	</ion-row>
-	
-	<ion-row>
-		<ion-col>
-			<h3>Use the web</h3>
-			<p>Create a new calendar or use an existing one</p>
-			<button ion-button (click)="openCalendars()">Get started</button>
-		</ion-col>
-	</ion-row>
-	
-</ion-content>
-
-<ion-content *ngIf="isCalendarLoaded()" padding>
+<ion-content padding>
 	<ion-row>
 		<ion-col>
 			<h4>{{getFromDate()}} - {{getToDate()}} - {{dayOffset}}</h4>

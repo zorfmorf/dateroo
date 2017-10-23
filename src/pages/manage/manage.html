@@ -47,28 +47,19 @@
 	
 	<ion-row *ngIf="isAdmin()" >
 		<ion-col>
-			<h3>Add single timeslot</h3>
-			<p>Add a one-time timeslot</p>
-		</ion-col>
-		<ion-col>
-			<button ion-button (click)="openAddTimeslot()">Add timeslot</button>
+			<h3>Create new entries</h3>
 		</ion-col>
 	</ion-row>
 	
-	<div *ngIf="isAdmin()">
-		<ion-list>
-			<h3>Current rules</h3>
-			<ion-item *ngFor="let rule of rules | async">
-				Every {{getWeekday(rule.weekday)}}, {{rule.slots}} timeslots, {{rule.duration}} minutes each, starting at {{rule.start}}
-				<ion-icon item-end>
-					<button ion-button color="danger" icon-only (click)="removeRule(rule.$key)">
-						<ion-icon name="trash"></ion-icon>
-					</button>
-				</ion-icon>
-			</ion-item>
-		</ion-list>
+	<ion-row *ngIf="isAdmin()" >
 		<ion-col>
-			<button ion-button (click)="openAddRule()">Add rule</button>
+			<button ion-button (click)="openAddTimeslot()">Add single timeslot</button>
 		</ion-col>
-	</div>
+	</ion-row>
+	
+	<ion-row *ngIf="isAdmin()">
+		<ion-col>
+			<button ion-button (click)="openAddRule()">Add bulk timeslot</button>
+		</ion-col>
+	</ion-row>
 </ion-content>

@@ -183,8 +183,4 @@ export class DatesPage {
 	openCalendars() {
 		this.nav.push(CalendarsPage);
 	}
-	
-	isCalendarLoaded() {
-		return this.firebaseProvider.getCurrentCalendar() != null;
-	}
 }

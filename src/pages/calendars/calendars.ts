@@ -11,6 +11,7 @@ export class CalendarsPage {
 	calendars : string[];
 	newCalendarName = '';
 	newCalendarDescription = '';
+	newCalendarEmail = '';
 	existingCalenderId = '';
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, public firebaseProvider: FirebaseProvider) {
@@ -52,5 +53,15 @@ export class CalendarsPage {
 	addExampleCalendar() {
 		this.firebaseProvider.addCalendarIfExist('calendar2134');
 		this.calendars = this.firebaseProvider.getCalendars();
+	}	
+	
+	isSendable() {
+		return this.newCalendarName != null && this.newCalendarName.length > 0 
+			&& this.newCalendarDescription != null && this.newCalendarDescription.length > 0
+			&& this.newCalendarEmail != null && this.newCalendarEmail.length > 2 && this.newCalendarEmail.indexOf("@") >= 0;
+	}
+	
+	isExistingSendable() {
+		return this.existingCalenderId != null && this.existingCalenderId.length > 0;
 	}
 }

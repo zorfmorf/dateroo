@@ -14,6 +14,7 @@ export class AddrulePage {
 	start;
 	slots = 1;
 	duration = 30;
+	weeks = 10
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, public firebaseProvider: FirebaseProvider) {
 		this.nav = navCtrl;
@@ -29,7 +30,7 @@ export class AddrulePage {
 	
 	createRule() {
 		let finalDate = new Date();
-		finalDate.setDate(finalDate.getDate() + 200);
+		finalDate.setDate(finalDate.getDate() + this.weeks * 7);
 		let data = {
 			'weekday' : this.weekday,
 			'start' : this.start,

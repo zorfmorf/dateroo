@@ -7,8 +7,7 @@
 	</ion-navbar>
 </ion-header>
 
-<ion-content padding>
-	
+<ion-content *ngIf="!isCalendarLoaded()" padding>
 	<ion-row>
 		<ion-col>
 			<h3>Welcome to Dateroo</h3>
@@ -52,3 +51,45 @@
 	</ion-row>
 	
 </ion-content>
+
+<ion-content *ngIf="isCalendarLoaded()" padding>
+	
+	<ion-row>
+		<ion-col>
+			<h3>Use the app</h3>
+			<p>App for Android, iOS and Windows Phone coming soon!</p>
+		</ion-col>
+	</ion-row>
+	
+	<ion-row>
+		<ion-col>
+			<h3>Quick Links</h3>
+		</ion-col>
+	</ion-row>
+	
+	<ion-row>
+		<ion-col>
+			<button ion-button (click)="openCalendar()">View current calendar</button>
+		</ion-col>
+	</ion-row>
+	
+	<ion-row>
+		<ion-col>
+			<button ion-button (click)="manageCalendar()">Manage calendar</button>
+		</ion-col>
+	</ion-row>
+
+	<ion-row>
+		<ion-col>
+			<button ion-button (click)="openCalendars()">All calendars</button>
+		</ion-col>
+	</ion-row>
+
+	
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+	<b>Imprint</b> Sebastian Tauch, Kurze Lemppen 2, 80975 Ulm, spam@aborium.de
+  </ion-toolbar>
+</ion-footer>
